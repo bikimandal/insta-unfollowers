@@ -47,7 +47,7 @@ export default function AnalyticsLayout({ children }: { children: React.ReactNod
     <div className="flex min-h-[100dvh] flex-col">
       <Navbar />
       {/* Breadcrumb */}
-      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-1.5 border-b border-border-glass px-6 py-2.5 text-[13px] text-text-muted">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-wrap items-center gap-1.5 border-b border-border-glass px-6 py-2.5 text-[13px] text-text-muted">
         {breadcrumbs.map((bc, i) => (
           <span key={bc.href} className="flex items-center gap-1.5">
             {i > 0 && <span className="text-border-glass">›</span>}

@@ -5,14 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clearAnalytics } from "@/lib/storage";
 import { BarChart2, User, Users, Handshake, AlertTriangle, Search, Menu, X } from "lucide-react";
+import { APP_NAME } from "@/lib/constants";
 
 const NAV_ITEMS = [
   { href: "/analytics", label: "Dashboard", icon: <BarChart2 size={16} /> },
   { href: "/analytics/following", label: "Following", icon: <User size={16} /> },
   { href: "/analytics/followers", label: "Followers", icon: <Users size={16} /> },
-  { href: "/analytics/mutual", label: "Mutual", icon: <Handshake size={16} /> },
   { href: "/analytics/not-following-back", label: "Not Following Back", icon: <AlertTriangle size={16} /> },
-  { href: "/analytics/all-users", label: "All Users", icon: <Search size={16} /> },
 ];
 
 export default function Navbar() {
@@ -27,8 +26,9 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/5 bg-slate-900/60 backdrop-blur-xl">
-      <div className="mx-auto flex h-[70px] max-w-[1280px] items-center justify-between px-6">
+    <>
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-slate-900/60 backdrop-blur-xl">
+        <div className="mx-auto flex h-[70px] max-w-[1280px] items-center justify-between px-6">
         {/* Logo */}
         <Link
           href="/analytics"
@@ -38,7 +38,7 @@ export default function Navbar() {
             <BarChart2 size={20} color="white" strokeWidth={2.5} />
           </div>
           <span className="gradient-text text-[20px] font-extrabold tracking-[-0.03em]">
-            InstaAnalytics
+            {APP_NAME}
           </span>
         </Link>
 
@@ -66,11 +66,14 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <button
             onClick={handleClear}
-            className="btn-secondary hidden lg:inline-flex px-4 py-2 text-[13px]"
+            className="hidden lg:inline-flex items-center justify-center rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2 text-[13px] font-semibold text-red-500 transition-all hover:bg-red-500/20 active:scale-95"
           >
             Clear Data
           </button>
-          <Link href="/" className="btn-primary hidden lg:inline-flex px-4 py-2 text-[13px]">
+          <Link 
+            href="/" 
+            className="hidden lg:inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-[13px] font-semibold text-white transition-all hover:bg-white/20 active:scale-95"
+          >
             Upload New
           </Link>
           
@@ -107,26 +110,28 @@ export default function Navbar() {
         })}
       </div>
 
+      </header>
+
       {/* Full Screen Overlay Menu (Mobile) */}
       {menuOpen && (
         <div className="fixed inset-0 top-[70px] z-40 flex flex-col bg-slate-900/95 p-8 backdrop-blur-xl animate-fade-in lg:hidden">
-          <div className="mt-auto flex flex-col gap-4">
+          <div className="mt-auto flex flex-col gap-4 pb-8">
             <Link
               href="/"
               onClick={() => setMenuOpen(false)}
-              className="btn-primary justify-center"
+              className="flex items-center justify-center rounded-xl border border-white/10 bg-white/10 px-5 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/20 active:scale-95"
             >
               Upload New Data
             </Link>
             <button
               onClick={handleClear}
-              className="btn-secondary justify-center"
+              className="flex items-center justify-center rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3.5 text-[15px] font-semibold text-red-500 transition-all hover:bg-red-500/20 active:scale-95"
             >
               Clear All Data
             </button>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

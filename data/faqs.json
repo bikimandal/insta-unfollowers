@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Is my Instagram data secure?",
+    "answer": "Absolutely. This tool runs 100% locally in your browser. Your data is never uploaded, stored, or processed on any external servers. Your privacy is guaranteed."
+  },
+  {
+    "question": "How do I get my Instagram export data?",
+    "answer": "Go to Instagram Settings → Security → Download Data. Select 'Followers and following' and export as JSON. Instagram will send you the files via email in 24-72 hours."
+  },
+  {
+    "question": "Can this tool access my Instagram account?",
+    "answer": "No. This is a read-only analytics tool. It only analyzes the static JSON files you upload. It doesn't require your password and can't follow, unfollow, or send messages."
+  },
+  {
+    "question": "How long does it take to analyze my data?",
+    "answer": "Processing is instant! Even for accounts with 100k+ followers, analysis typically completes in under 3 seconds—all happening locally on your device."
+  },
+  {
+    "question": "Can I export the results?",
+    "answer": "Yes! Download your unfollowers, followers, following, and mutual lists as CSV files. Perfect for backup or further analysis in spreadsheet apps."
+  }
+]

@@ -1,5 +1,6 @@
 import { ArrowLeft, ExternalLink, Download, Smartphone, Settings, Calendar, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import type { ReactNode } from "react";
 
@@ -113,31 +114,33 @@ export default function GuidePage() {
             {steps.map((step, i) => (
               <div
                 key={i}
-                className="card animate-fade-up flex items-start gap-6 p-8"
+                className="card animate-fade-up flex flex-col sm:flex-row items-start gap-4 sm:gap-6 p-6 sm:p-8"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-gradient-to-br from-accent-primary/10 to-highlight/10 text-accent-primary">
+                <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-gradient-to-br from-accent-primary/10 to-highlight/10 text-accent-primary">
                   {step.icon}
                 </div>
-                <div className="min-w-0 flex-1">
+                <div className="min-w-0 flex-1 w-full">
                   <div className="mb-2 text-[13px] font-bold uppercase tracking-[0.05em] text-highlight">
                     Step {i + 1}
                   </div>
-                  <h2 className="mb-3 text-[22px] font-bold text-text-primary">
+                  <h2 className="mb-3 text-[20px] sm:text-[22px] font-bold text-text-primary">
                     {step.title}
                   </h2>
-                  <div className="text-[17px] font-normal leading-relaxed text-white/90">
+                  <div className="text-[15px] sm:text-[17px] font-normal leading-relaxed text-white/90">
                     {step.description}
                   </div>
 
                   {step.images && step.images.length > 0 && (
                     <div className="mt-6 flex flex-col gap-4">
                       {step.images.map((img, imgIdx) => (
-                        <img
+                        <Image
                           key={imgIdx}
                           src={img}
                           alt={`Step ${i + 1} screenshot ${imgIdx + 1}`}
-                          className="max-w-full rounded-xl border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+                          width={800}
+                          height={450}
+                          className="w-full h-auto rounded-xl border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
                         />
                       ))}
                     </div>

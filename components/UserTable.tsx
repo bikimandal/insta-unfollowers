@@ -7,7 +7,7 @@ import Pagination from "./Pagination";
 import EmptyState from "./EmptyState";
 import { formatDate, downloadCSV, downloadTXT } from "@/lib/parseInstagram";
 import { useToast } from "./Toast";
-import { ArrowDownUp, ArrowUp, ArrowDown, LayoutList, Grid, Copy, Download } from "lucide-react";
+import { ArrowDownUp, ArrowUp, ArrowDown, LayoutList, Grid, Copy, Download, ExternalLink } from "lucide-react";
 import type { ReactNode } from "react";
 
 const PAGE_SIZE = 50;
@@ -172,7 +172,6 @@ export default function UserTable({
               <tr className="border-b border-border-glass">
                 {([
                   { field: "username" as SortField, label: "Username" },
-                  { field: "timestamp" as SortField, label: "Date Added" },
                 ]).map(({ field, label }) => (
                   <th
                     key={field}
@@ -198,9 +197,9 @@ export default function UserTable({
                     key={user.username}
                     className={`border-b border-border-glass transition-all duration-150 ${
                       isVisited 
-                        ? "border-l-4 border-l-success bg-success/10 hover:bg-success/20" 
+                        ? "border-l-4 border-l-highlight bg-highlight/10 hover:bg-highlight/20" 
                         : isWarning 
-                          ? "border-l-4 border-l-danger hover:border-l-danger hover:bg-danger/5" 
+                          ? "border-l-4 border-l-accent-primary hover:border-l-accent-primary hover:bg-accent-primary/5" 
                           : "hover:border-l-2 hover:border-l-accent-primary hover:bg-white/5"
                     }`}
                     style={{ animationDelay: `${i * 15}ms` }}
@@ -224,9 +223,6 @@ export default function UserTable({
                         </a>
                       </div>
                     </td>
-                    <td className="whitespace-nowrap px-5 py-3.5 text-[13px] text-text-muted">
-                      {formatDate(user.timestamp)}
-                    </td>
                     <td className="px-5 py-3.5">
                       <Badge status={status} />
                     </td>
@@ -234,18 +230,18 @@ export default function UserTable({
                       <div className="flex justify-end gap-2">
                         <button
                           onClick={() => handleCopyOne(user.username)}
-                          className="btn-secondary flex items-center gap-1 px-2.5 py-1 text-[12px]"
+                          className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] font-medium text-text-secondary transition-all hover:border-accent-primary/50 hover:text-accent-primary active:scale-95"
                         >
-                          <Copy size={12} /> Copy
+                          <Copy size={13} /> Copy
                         </button>
                         <a
                           href={`https://www.instagram.com/${user.username}/`}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => handleVisit(user.username)}
-                          className="btn-primary flex items-center gap-1 px-2.5 py-1 text-[12px]"
+                          className="flex items-center gap-1.5 rounded-md border border-accent-primary/30 bg-accent-primary/10 px-3 py-1.5 text-[12px] font-medium text-accent-primary no-underline transition-all hover:bg-accent-primary/20 hover:text-accent-primary active:scale-95"
                         >
-                          Visit
+                          Visit <ExternalLink size={13} />
                         </a>
                       </div>
                     </td>
@@ -266,9 +262,9 @@ export default function UserTable({
                 key={user.username}
                 className={`card animate-fade-up flex flex-col gap-2.5 p-4 ${
                   isVisited 
-                    ? "border-l-4 border-l-success border-success/30 bg-success/10 hover:border-success hover:bg-success/20" 
+                    ? "border-l-4 border-l-highlight border-highlight/30 bg-highlight/10 hover:border-highlight hover:bg-highlight/20" 
                     : isWarning 
-                      ? "border-l-4 border-l-danger hover:border-l-danger hover:bg-danger/20 hover:shadow-[0_25px_50px_-12px_rgba(239,68,68,0.2)]" 
+                      ? "border-l-4 border-l-accent-primary hover:border-l-accent-primary hover:bg-accent-primary/10 hover:shadow-[0_10px_30px_-10px_rgba(255,107,53,0.2)]" 
                       : ""
                 }`}
                 style={{ animationDelay: `${i * 20}ms` }}
@@ -290,26 +286,25 @@ export default function UserTable({
                     >
                       @{user.username}
                     </a>
-                    <div className="text-[11px] text-text-muted">{formatDate(user.timestamp)}</div>
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-2 mt-1">
                   <Badge status={status} />
-                  <div className="flex gap-1.5">
+                  <div className="flex gap-2 mt-2 sm:mt-0">
                     <button
                       onClick={() => handleCopyOne(user.username)}
-                      className="btn-secondary flex items-center gap-1 px-2 py-1 text-[11px]"
+                      className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-text-secondary transition-all hover:border-accent-primary/50 hover:text-accent-primary active:scale-95"
                     >
-                      <Copy size={11} /> Copy
+                      <Copy size={12} /> Copy
                     </button>
                     <a
                       href={`https://www.instagram.com/${user.username}/`}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => handleVisit(user.username)}
-                      className="btn-primary flex items-center gap-1 px-2 py-1 text-[11px]"
+                      className="flex items-center gap-1.5 rounded-md border border-accent-primary/30 bg-accent-primary/10 px-2.5 py-1 text-[11px] font-medium text-accent-primary no-underline transition-all hover:bg-accent-primary/20 hover:text-accent-primary active:scale-95"
                     >
-                      Visit
+                      Visit <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>

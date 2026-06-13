@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart2, ExternalLink } from "lucide-react";
+import { BarChart2, ExternalLink, Heart } from "lucide-react";
+import { BRAND_NAME, PORTFOLIO_URL, APP_NAME } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -18,7 +19,7 @@ export default function Footer() {
                 <BarChart2 size={16} color="white" strokeWidth={2.5} />
               </div>
               <span className="gradient-text text-[17px] font-extrabold tracking-[-0.03em]">
-                InstaAnalytics
+                {APP_NAME}
               </span>
             </div>
             <p className="m-0 text-[13px] leading-relaxed text-text-secondary">
@@ -54,7 +55,6 @@ export default function Footer() {
               {[
                 { href: "/analytics/followers", label: "Followers" },
                 { href: "/analytics/following", label: "Following" },
-                { href: "/analytics/mutual", label: "Mutual" },
                 { href: "/analytics/not-following-back", label: "Not Following Back" },
               ].map(({ href, label }) => (
                 <Link
@@ -73,12 +73,18 @@ export default function Footer() {
         <div className="h-px bg-white/5" />
 
         {/* Bottom row */}
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col-reverse sm:flex-row flex-wrap items-center justify-between gap-4 sm:gap-3 text-center sm:text-left">
           <span className="text-[13px] text-text-muted">
-            © {year} InstaAnalytics · All processing is done locally in your browser
+            © {year} {APP_NAME} · Processed locally
           </span>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-4">
+            <span className="flex items-center gap-1.5 text-[13px] text-text-muted">
+              Made with <Heart size={12} className="text-danger" fill="currentColor" /> by
+              <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-text-secondary transition-colors hover:text-accent-primary">
+                {BRAND_NAME}
+              </a>
+            </span>
             <a
               href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark"
               target="_blank"

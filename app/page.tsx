@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import FileUpload from "@/components/FileUpload";
+import { INSTAGRAM_ICON } from "@/lib/constants";
 import { Users, Zap, Handshake, BarChart2, Download, Lock } from "lucide-react";
 
 const FEATURES = [
@@ -22,14 +24,27 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="mx-auto flex w-full max-w-[1000px] flex-1 flex-col items-center justify-center px-6 py-20 text-center">
-        <h1 className="animate-fade-up mb-6 text-[clamp(48px,8vw,72px)] font-extrabold leading-tight tracking-tight">
-          Master Your <span className="gradient-text">Instagram Network</span>
+        <div className="animate-fade-up mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 sm:px-8 sm:py-3 text-[16px] sm:text-[18px] font-medium text-white/90 shadow-lg backdrop-blur-md">
+          <Image src={INSTAGRAM_ICON} alt="Instagram" width={24} height={24} className="opacity-90" />
+          <span>The Ultimate Analytics Tool for Instagram</span>
+        </div>
+
+        <h1 className="animate-fade-up mb-6 text-[clamp(48px,8vw,72px)] font-extrabold leading-tight tracking-tight [animation-delay:40ms]">
+          Stop Wondering <span className="gradient-text">Who's Ghosting You</span>
         </h1>
 
-        <p className="animate-fade-up mx-auto mb-12 max-w-[680px] text-[clamp(18px,4vw,22px)] font-normal leading-relaxed text-text-secondary [animation-delay:60ms]">
-          Instantly discover who isn't following you back, find mutual connections, 
-          and explore deep analytics. 100% secure and runs locally in your browser.
-        </p>
+        <div className="animate-fade-up mx-auto mb-12 max-w-[680px] text-[clamp(18px,4vw,22px)] font-normal leading-relaxed text-text-secondary [animation-delay:60ms]">
+          <p className="mb-5">
+            Uncover unfollowers. Discover mutuals. Deep analytics instantly.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[15px] sm:text-[17px] font-medium text-text-primary">
+            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100%</strong> Secure</span>
+            <span className="hidden text-white/20 sm:inline">•</span>
+            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100%</strong> Private</span>
+            <span className="hidden text-white/20 sm:inline">•</span>
+            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100%</strong> Local Processing</span>
+          </div>
+        </div>
 
         {/* Upload area */}
         <div className="animate-fade-up w-full [animation-delay:120ms]">
@@ -39,7 +54,7 @@ export default function HomePage() {
 
       {/* Features grid */}
       <section className="mx-auto w-full max-w-[1200px] px-6 py-20">
-        <div className="stagger grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+        <div className="stagger grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
           {FEATURES.map((f, i) => (
             <div
               key={i}
