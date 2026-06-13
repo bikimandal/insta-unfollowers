@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BarChart2 } from "lucide-react";
+import Image from "next/image";
 import { hasAnalytics } from "@/lib/storage";
-import { APP_NAME } from "@/lib/constants";
+import { APP_NAME, APP_ICON } from "@/lib/constants";
 
 export default function Header() {
   const [hasData, setHasData] = useState(false);
@@ -15,10 +15,8 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-10 flex h-[70px] items-center justify-between border-b border-white/5 bg-slate-900/40 px-8 backdrop-blur-xl">
-      <Link href="/" className="flex items-center gap-3 no-underline">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent-primary to-highlight text-lg shadow-[0_4px_15px_rgba(255,107,53,0.4)]">
-          <BarChart2 size={20} color="white" strokeWidth={2.5} />
-        </div>
+      <Link href="/" className="flex items-center gap-3 no-underline transition-transform hover:scale-105">
+        <Image src={APP_ICON} alt={APP_NAME} width={36} height={36} className="h-9 w-9 drop-shadow-[0_4px_15px_rgba(255,107,53,0.2)]" />
         <span className="gradient-text text-[20px] font-extrabold tracking-[-0.03em]">
           {APP_NAME}
         </span>

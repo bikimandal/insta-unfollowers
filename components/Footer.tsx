@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart2, ExternalLink, Heart } from "lucide-react";
-import { BRAND_NAME, PORTFOLIO_URL, APP_NAME } from "@/lib/constants";
+import Image from "next/image";
+import { ExternalLink, Heart } from "lucide-react";
+import { BRAND_NAME, PORTFOLIO_URL, APP_NAME, APP_ICON } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -15,9 +16,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex max-w-[280px] flex-col gap-2.5">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-accent-primary to-highlight shadow-[0_4px_12px_rgba(255,107,53,0.3)]">
-                <BarChart2 size={16} color="white" strokeWidth={2.5} />
-              </div>
+              <Image src={APP_ICON} alt={APP_NAME} width={32} height={32} className="h-8 w-8 drop-shadow-[0_4px_12px_rgba(255,107,53,0.2)]" />
               <span className="gradient-text text-[17px] font-extrabold tracking-[-0.03em]">
                 {APP_NAME}
               </span>
