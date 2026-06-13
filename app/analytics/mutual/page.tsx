@@ -17,39 +17,27 @@ export default function MutualPage() {
 
   return (
     <div>
-      <div className="animate-fade-up" style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 14,
-              background: "rgba(168,85,247,0.15)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 22,
-              flexShrink: 0,
-            }}
-          >
-            <Handshake size={24} color="#a855f7" />
+      <div className="animate-fade-up mb-7">
+        <div className="flex flex-wrap items-center gap-3.5">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-purple-500/15 text-[22px]">
+            <Handshake size={24} className="text-purple-500" />
           </div>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: "-0.02em", margin: 0 }}>
+            <h1 className="m-0 text-[26px] font-extrabold tracking-[-0.02em]">
               Mutual Followers
             </h1>
-            <p style={{ color: "var(--text-muted)", fontSize: 14, margin: "4px 0 0" }}>
+            <p className="mt-1 text-[14px] text-text-muted">
               {data.mutual.length} accounts where you both follow each other
             </p>
           </div>
         </div>
       </div>
 
-      <div className="card animate-fade-up" style={{ animationDelay: "60ms", overflow: "hidden" }}>
+      <div className="card animate-fade-up overflow-hidden [animation-delay:60ms]">
         <UserTable
           users={data.mutual}
           status="mutual"
-          emptyIcon={<SearchX size={32} color="var(--text-muted)" />}
+          emptyIcon={<SearchX size={32} className="text-text-muted" />}
           emptyTitle="No mutual followers"
           emptyDescription="Upload both followers.json and following.json to find mutual connections."
         />

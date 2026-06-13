@@ -20,40 +20,22 @@ export default function Pagination({ page, totalPages, onPageChange, totalItems,
   );
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "14px 20px",
-        borderTop: "1px solid var(--border-glass)",
-        flexWrap: "wrap",
-        gap: 12,
-        background: "rgba(15,23,42,0.3)",
-      }}
-    >
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border-glass bg-slate-900/30 px-5 py-3.5">
       {/* Item count */}
-      <div style={{ fontSize: 13, color: "var(--text-secondary)", whiteSpace: "nowrap" }}>
-        <strong style={{ color: "var(--text-primary)" }}>{startIdx}–{endIdx}</strong>
+      <div className="whitespace-nowrap text-[13px] text-text-secondary">
+        <strong className="text-text-primary">{startIdx}–{endIdx}</strong>
         {" "}of{" "}
-        <strong style={{ color: "var(--text-primary)" }}>{totalItems}</strong>
+        <strong className="text-text-primary">{totalItems}</strong>
       </div>
 
       {/* Page buttons */}
-      <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+      <div className="flex items-center gap-1">
         {/* Prev */}
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
           aria-label="Previous page"
-          style={{
-            width: 34, height: 34, borderRadius: 8, border: "1px solid var(--border-glass)",
-            background: "var(--bg-surface)", color: "var(--text-secondary)",
-            cursor: page === 1 ? "not-allowed" : "pointer",
-            opacity: page === 1 ? 0.4 : 1,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            transition: "all 0.15s",
-          }}
+          className={`flex h-8 w-8 items-center justify-center rounded-lg border border-border-glass bg-bg-surface text-text-secondary transition-all duration-150 ${page === 1 ? 'cursor-not-allowed opacity-40' : 'cursor-pointer hover:bg-white/5 hover:text-text-primary'}`}
         >
           <ChevronLeft size={16} />
         </button>
@@ -62,25 +44,12 @@ export default function Pagination({ page, totalPages, onPageChange, totalItems,
         {pageNums.map((p, i, arr) => (
           <React.Fragment key={p}>
             {i > 0 && p - arr[i - 1] > 1 && (
-              <span style={{ color: "var(--text-muted)", fontSize: 13, padding: "0 2px" }}>…</span>
+              <span className="px-0.5 text-[13px] text-text-muted">…</span>
             )}
             <button
               onClick={() => onPageChange(p)}
               aria-current={p === page ? "page" : undefined}
-              style={{
-                minWidth: 34, height: 34, borderRadius: 8, border: "none", padding: "0 6px",
-                background: p === page
-                  ? "linear-gradient(135deg, var(--accent-primary), var(--highlight))"
-                  : "transparent",
-                color: p === page ? "white" : "var(--text-secondary)",
-                fontWeight: p === page ? 700 : 400,
-                fontSize: 13,
-                cursor: "pointer",
-                transition: "all 0.15s",
-                boxShadow: p === page ? "0 3px 10px rgba(255,107,53,0.35)" : "none",
-              }}
-              onMouseEnter={(e) => { if (p !== page) e.currentTarget.style.background = "rgba(255,255,255,0.07)"; }}
-              onMouseLeave={(e) => { if (p !== page) e.currentTarget.style.background = "transparent"; }}
+              className={`flex h-8 min-w-[32px] items-center justify-center rounded-lg px-1.5 text-[13px] transition-all duration-150 ${p === page ? 'bg-gradient-to-br from-accent-primary to-highlight font-bold text-white shadow-[0_3px_10px_rgba(255,107,53,0.35)]' : 'bg-transparent font-normal text-text-secondary hover:bg-white/5 hover:text-text-primary'}`}
             >
               {p}
             </button>
@@ -92,14 +61,7 @@ export default function Pagination({ page, totalPages, onPageChange, totalItems,
           onClick={() => onPageChange(page + 1)}
           disabled={page === totalPages}
           aria-label="Next page"
-          style={{
-            width: 34, height: 34, borderRadius: 8, border: "1px solid var(--border-glass)",
-            background: "var(--bg-surface)", color: "var(--text-secondary)",
-            cursor: page === totalPages ? "not-allowed" : "pointer",
-            opacity: page === totalPages ? 0.4 : 1,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            transition: "all 0.15s",
-          }}
+          className={`flex h-8 w-8 items-center justify-center rounded-lg border border-border-glass bg-bg-surface text-text-secondary transition-all duration-150 ${page === totalPages ? 'cursor-not-allowed opacity-40' : 'cursor-pointer hover:bg-white/5 hover:text-text-primary'}`}
         >
           <ChevronRight size={16} />
         </button>

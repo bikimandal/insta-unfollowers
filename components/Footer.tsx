@@ -1,74 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart2, Github, ExternalLink } from "lucide-react";
+import { BarChart2, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      style={{
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-        background: "rgba(15,23,42,0.6)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        padding: "32px 24px",
-        marginTop: "auto",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: 24,
-        }}
-      >
+    <footer className="mt-auto border-t border-white/5 bg-slate-900/60 p-8 backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6">
         {/* Top row */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            gap: 32,
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="flex flex-wrap items-start justify-between gap-8">
           {/* Brand */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 280 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: "50%",
-                  background: "linear-gradient(135deg, var(--accent-primary), var(--highlight))",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 4px 12px rgba(255,107,53,0.3)",
-                }}
-              >
+          <div className="flex max-w-[280px] flex-col gap-2.5">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-accent-primary to-highlight shadow-[0_4px_12px_rgba(255,107,53,0.3)]">
                 <BarChart2 size={16} color="white" strokeWidth={2.5} />
               </div>
-              <span
-                className="gradient-text"
-                style={{ fontWeight: 800, fontSize: 17, letterSpacing: "-0.03em" }}
-              >
+              <span className="gradient-text text-[17px] font-extrabold tracking-[-0.03em]">
                 InstaAnalytics
               </span>
             </div>
-            <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
+            <p className="m-0 text-[13px] leading-relaxed text-text-secondary">
               Understand your Instagram network. 100% private — your data never leaves your browser.
             </p>
           </div>
 
           {/* Links */}
-          <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>
+          <div className="flex flex-wrap gap-12">
+            <div className="flex flex-col gap-2.5">
+              <div className="mb-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-text-muted">
                 App
               </div>
               {[
@@ -79,17 +40,15 @@ export default function Footer() {
                 <Link
                   key={href}
                   href={href}
-                  style={{ fontSize: 14, color: "var(--text-secondary)", textDecoration: "none", transition: "color 0.15s" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
+                  className="hover-link text-[14px] text-text-secondary"
                 >
                   {label}
                 </Link>
               ))}
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>
+            <div className="flex flex-col gap-2.5">
+              <div className="mb-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-text-muted">
                 Analytics
               </div>
               {[
@@ -101,9 +60,7 @@ export default function Footer() {
                 <Link
                   key={href}
                   href={href}
-                  style={{ fontSize: 14, color: "var(--text-secondary)", textDecoration: "none", transition: "color 0.15s" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
+                  className="hover-link text-[14px] text-text-secondary"
                 >
                   {label}
                 </Link>
@@ -113,30 +70,20 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div style={{ height: 1, background: "rgba(255,255,255,0.06)" }} />
+        <div className="h-px bg-white/5" />
 
         {/* Bottom row */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: 12,
-          }}
-        >
-          <span style={{ fontSize: 13, color: "var(--text-muted)" }}>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span className="text-[13px] text-text-muted">
             © {year} InstaAnalytics · All processing is done locally in your browser
           </span>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div className="flex items-center gap-4">
             <a
               href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 13, color: "var(--text-muted)", textDecoration: "none", display: "flex", alignItems: "center", gap: 5, transition: "color 0.15s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--highlight)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+              className="flex items-center gap-1.5 text-[13px] text-text-muted no-underline transition-colors duration-150 hover:text-highlight"
             >
               <ExternalLink size={13} /> Get Instagram Data
             </a>

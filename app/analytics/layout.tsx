@@ -23,27 +23,9 @@ export default function AnalyticsLayout({ children }: { children: React.ReactNod
 
   if (!checked) {
     return (
-      <div
-        style={{
-          minHeight: "100dvh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          gap: 16,
-        }}
-      >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            border: "3px solid rgba(99,102,241,0.2)",
-            borderTopColor: "#6366f1",
-            animation: "spin 0.8s linear infinite",
-          }}
-        />
-        <div style={{ color: "var(--text-muted)", fontSize: 14 }}>Loading analytics…</div>
+      <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-4">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-500/20 border-t-indigo-500" />
+        <div className="text-sm text-text-muted">Loading analytics…</div>
       </div>
     );
   }
@@ -62,34 +44,19 @@ export default function AnalyticsLayout({ children }: { children: React.ReactNod
   ];
 
   return (
-    <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
+    <div className="flex min-h-[100dvh] flex-col">
       <Navbar />
       {/* Breadcrumb */}
-      <div
-        style={{
-          padding: "10px 24px",
-          borderBottom: "1px solid var(--bg-border)",
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-          fontSize: 13,
-          color: "var(--text-muted)",
-          maxWidth: 1280,
-          margin: "0 auto",
-          width: "100%",
-        }}
-      >
+      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-1.5 border-b border-border-glass px-6 py-2.5 text-[13px] text-text-muted">
         {breadcrumbs.map((bc, i) => (
-          <span key={bc.href} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            {i > 0 && <span style={{ color: "var(--bg-border)" }}>›</span>}
+          <span key={bc.href} className="flex items-center gap-1.5">
+            {i > 0 && <span className="text-border-glass">›</span>}
             {i === breadcrumbs.length - 1 ? (
-              <span style={{ color: "var(--text-secondary)", fontWeight: 500 }}>{bc.label}</span>
+              <span className="font-medium text-text-secondary">{bc.label}</span>
             ) : (
               <Link
                 href={bc.href}
-                style={{ color: "var(--text-muted)", textDecoration: "none", transition: "color 0.15s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+                className="hover-link text-inherit"
               >
                 {bc.label}
               </Link>
@@ -97,15 +64,7 @@ export default function AnalyticsLayout({ children }: { children: React.ReactNod
           </span>
         ))}
       </div>
-      <main
-        style={{
-          flex: 1,
-          maxWidth: 1280,
-          margin: "0 auto",
-          width: "100%",
-          padding: "32px 24px 60px",
-        }}
-      >
+      <main className="mx-auto w-full max-w-[1280px] flex-1 px-6 pb-[60px] pt-8">
         {children}
       </main>
     </div>

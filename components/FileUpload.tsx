@@ -159,17 +159,14 @@ export default function FileUpload() {
   const fileCount = [pendingFollowing, pendingFollowers].filter(Boolean).length;
 
   return (
-    <div style={{ width: "100%", maxWidth: 680, margin: "0 auto" }}>
+    <div className="mx-auto w-full max-w-[680px]">
       {/* Drop zone */}
       <div
-        className={`upload-zone${isDragging ? " drag-over" : ""} animate-fade-up`}
-        style={{
-          padding: "60px 32px",
-          textAlign: "center",
-          cursor: "pointer",
-          position: "relative",
-          animation: isDragging ? "none" : "borderCycle 4s linear infinite, pulseUpload 4s infinite ease-in-out",
-        }}
+        className={`upload-zone animate-fade-up relative cursor-pointer rounded-[20px] border-2 border-dashed px-8 py-[60px] text-center transition-all duration-300 ${
+          isDragging 
+            ? "border-accent-primary bg-gradient-to-br from-accent-primary/10 to-highlight/10 scale-102" 
+            : "border-border-glass bg-bg-surface backdrop-blur-md [animation:borderCycle_4s_linear_infinite,pulseUpload_4s_infinite_ease-in-out] hover:scale-102 hover:border-accent-primary hover:bg-gradient-to-br hover:from-accent-primary/10 hover:to-highlight/10 hover:[animation:none]"
+        }`}
         onDragEnter={(e) => { e.preventDefault(); setState("dragging"); }}
         onDragOver={(e) => { e.preventDefault(); setState("dragging"); }}
         onDragLeave={(e) => { e.preventDefault(); setState("idle"); }}
@@ -179,86 +176,78 @@ export default function FileUpload() {
         aria-label="File upload area"
       >
         {state === "processing" ? (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
-            <div
-              style={{
-                width: 72, height: 72, borderRadius: "50%",
-                border: "4px solid rgba(255,107,53,0.2)",
-                borderTopColor: "var(--accent-primary)",
-                animation: "spin 0.8s linear infinite",
-              }}
-            />
+          <div className="flex flex-col items-center gap-6">
+            <div className="h-[72px] w-[72px] animate-spin rounded-full border-4 border-accent-primary/20 border-t-accent-primary" />
             <div>
-              <div style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)", marginBottom: 12 }}>
+              <div className="mb-3 text-lg font-semibold text-text-primary">
                 {progress?.step}
               </div>
-              <div style={{ width: 300, height: 8, background: "var(--bg-slate)", borderRadius: 999, overflow: "hidden", margin: "0 auto", boxShadow: "inset 0 1px 3px rgba(0,0,0,0.2)" }}>
-                <div style={{ height: "100%", width: `${progress?.pct ?? 0}%`, background: "linear-gradient(90deg, var(--accent-primary), var(--highlight))", borderRadius: 999, transition: "width 0.4s ease", boxShadow: "0 0 10px rgba(6,182,212,0.5)" }} />
+              <div className="mx-auto h-2 w-[300px] overflow-hidden rounded-full bg-bg-slate shadow-[inset_0_1px_3px_rgba(0,0,0,0.2)]">
+                <div 
+                  className="h-full rounded-full bg-gradient-to-r from-accent-primary to-highlight shadow-[0_0_10px_rgba(6,182,212,0.5)] transition-[width] duration-400 ease-out" 
+                  style={{ width: `${progress?.pct ?? 0}%` }}
+                />
               </div>
             </div>
           </div>
         ) : state === "success" ? (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-            <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg, var(--success), #34D399)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", boxShadow: "0 10px 25px rgba(16,185,129,0.4)" }}>
+          <div className="flex flex-col items-center gap-5">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-success to-emerald-400 text-white shadow-[0_10px_25px_rgba(16,185,129,0.4)]">
               <CheckCircle size={40} />
             </div>
             <div>
-              <div style={{ fontSize: 24, fontWeight: 800, color: "white", marginBottom: 6 }}>Upload Successful!</div>
-              <div style={{ fontSize: 16, color: "var(--text-secondary)" }}>Redirecting to your dashboard...</div>
+              <div className="mb-1.5 text-2xl font-extrabold text-white">Upload Successful!</div>
+              <div className="text-base text-text-secondary">Redirecting to your dashboard...</div>
             </div>
           </div>
         ) : (
           <>
-            <div style={{ fontSize: 56, marginBottom: 20, lineHeight: 1, filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.2))" }}>
-              <UploadCloud size={64} color="var(--accent-primary)" />
+            <div className="mb-5 text-[56px] leading-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.2)] flex justify-center">
+              <UploadCloud size={64} className="text-accent-primary" />
             </div>
-            <div style={{ fontSize: 24, fontWeight: 700, color: "var(--text-primary)", marginBottom: 12 }}>
+            <div className="mb-3 text-2xl font-bold text-text-primary">
               {isDragging ? "Drop files to analyze" : "Drag your Instagram export JSON files here"}
             </div>
-            <div style={{ fontSize: 16, color: "var(--text-secondary)", marginBottom: 32 }}>
+            <div className="mb-8 text-base text-text-secondary">
               or click to browse your files
             </div>
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", fontSize: 14, color: "var(--text-secondary)" }}>
+            <div className="flex justify-center gap-3 text-sm text-text-secondary">
               {["followers.json", "following.json"].map((name) => (
-                <span key={name} style={{ padding: "6px 16px", background: "rgba(255,255,255,0.05)", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)" }}>
+                <span key={name} className="rounded-lg border border-white/10 bg-white/5 px-4 py-1.5">
                   {name}
                 </span>
               ))}
             </div>
           </>
         )}
-        <input type="file" accept=".json" multiple ref={mainInputRef} onChange={onMainFileSelect} style={{ display: "none" }} />
+        <input type="file" accept=".json" multiple ref={mainInputRef} onChange={onMainFileSelect} className="hidden" />
       </div>
 
       {/* Manual file selectors */}
       {state !== "processing" && state !== "success" && (
-        <div className="animate-fade-up" style={{ marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, animationDelay: "100ms" }}>
+        <div className="animate-fade-up mt-6 grid grid-cols-2 gap-4 [animation-delay:100ms]">
           {([
             { ref: followingInputRef, type: "following" as const, label: "following.json", icon: <User size={28} />, desc: "People you follow", file: pendingFollowing },
             { ref: followersInputRef, type: "followers" as const, label: "followers.json", icon: <Users size={28} />, desc: "Your followers", file: pendingFollowers },
           ]).map(({ ref, type, label, icon, desc, file }) => (
             <div key={type}>
-              <input ref={ref} type="file" accept=".json" style={{ display: "none" }} onChange={(e) => onFileChange(e, type)} id={`file-${type}`} />
+              <input ref={ref} type="file" accept=".json" className="hidden" onChange={(e) => onFileChange(e, type)} id={`file-${type}`} />
               <label
                 htmlFor={`file-${type}`}
-                style={{
-                  display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
-                  padding: "24px 16px",
-                  background: file ? "rgba(255,107,53,0.1)" : "var(--bg-surface)",
-                  border: `1px solid ${file ? "var(--accent-primary)" : "var(--border-glass)"}`,
-                  borderRadius: 16, cursor: "pointer", transition: "all 0.3s",
-                  textAlign: "center", backdropFilter: "blur(10px)",
-                }}
-                className={!file ? "card" : ""}
+                className={`flex cursor-pointer flex-col items-center gap-2.5 rounded-2xl border px-4 py-6 text-center backdrop-blur-md transition-all duration-300 ${
+                  file 
+                    ? "border-accent-primary bg-accent-primary/10" 
+                    : "card border-border-glass bg-bg-surface"
+                }`}
               >
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: 8, filter: file ? "drop-shadow(0 0 8px var(--accent-primary))" : "none", color: file ? "var(--success)" : "var(--text-secondary)" }}>
+                <div className={`mb-2 flex justify-center ${file ? "text-success drop-shadow-[0_0_8px_var(--color-accent-primary)]" : "text-text-secondary"}`}>
                   {file ? <FileJson size={32} /> : icon}
                 </div>
-                <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)" }}>
+                <div className="text-center">
+                  <div className="text-[15px] font-semibold text-text-primary">
                     {file ? file.name : label}
                   </div>
-                  <div style={{ fontSize: 13, color: "var(--text-secondary)", marginTop: 4 }}>
+                  <div className="mt-1 text-[13px] text-text-secondary">
                     {file ? "Click to change" : desc}
                   </div>
                 </div>
@@ -270,7 +259,7 @@ export default function FileUpload() {
 
       {/* Error message */}
       {state === "error" && (
-        <div className="animate-fade-up" style={{ marginTop: 20, padding: "16px 20px", background: "rgba(239,68,68,0.15)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: 12, color: "#fca5a5", fontSize: 15, display: "flex", alignItems: "center", gap: 12, backdropFilter: "blur(10px)" }}>
+        <div className="animate-fade-up mt-5 flex items-center gap-3 rounded-xl border border-red-500/30 bg-red-500/15 px-5 py-4 text-[15px] text-red-300 backdrop-blur-md">
           <AlertTriangle size={24} />
           <span>{error}</span>
         </div>
@@ -278,11 +267,11 @@ export default function FileUpload() {
 
       {/* Analyze button */}
       {(pendingFollowing || pendingFollowers) && state !== "processing" && state !== "success" && (
-        <div className="animate-fade-up" style={{ marginTop: 28, textAlign: "center" }}>
-          <button onClick={handleAnalyze} className="btn-primary" style={{ fontSize: 18, padding: "16px 48px", borderRadius: 14 }} id="analyze-button">
+        <div className="animate-fade-up mt-7 text-center">
+          <button onClick={handleAnalyze} className="btn-primary rounded-xl px-12 py-4 text-lg" id="analyze-button">
             Analyze Data →
           </button>
-          <div style={{ marginTop: 12, fontSize: 14, color: "var(--text-secondary)" }}>
+          <div className="mt-3 text-sm text-text-secondary">
             {fileCount} file{fileCount !== 1 ? "s" : ""} ready for processing
           </div>
         </div>
@@ -290,27 +279,27 @@ export default function FileUpload() {
 
       {/* How to export guide */}
       {state === "idle" && !pendingFollowing && !pendingFollowers && (
-        <div className="card animate-fade-up" style={{ marginTop: 40, padding: "32px", animationDelay: "200ms" }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-secondary)", marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+        <div className="card animate-fade-up mt-10 p-8 [animation-delay:200ms]">
+          <div className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-text-secondary">
             How to get your data
           </div>
-          <div style={{ display: "grid", gap: 16 }}>
+          <div className="grid gap-4">
             {[
-              <><a href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark" target="_blank" rel="noopener noreferrer" style={{ color: "var(--highlight)", textDecoration: "none", fontWeight: 600 }}>Open the Download Your Information</a> page in the Instagram Accounts Center</>,
+              <><a href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark" target="_blank" rel="noopener noreferrer" className="font-semibold text-highlight no-underline">Open the Download Your Information</a> page in the Instagram Accounts Center</>,
               'Select "Followers and following" and choose JSON format',
               "Request download and wait for the email from Instagram",
               'Unzip and upload the "followers.json" and "following.json" files here',
             ].map((step, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                <div style={{ width: 32, height: 32, borderRadius: "50%", background: "linear-gradient(135deg, rgba(255,107,53,0.15), rgba(6,182,212,0.15))", color: "var(--accent-primary)", fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: "1px solid rgba(255,107,53,0.2)" }}>
+              <div key={i} className="flex items-center gap-4">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent-primary/20 bg-gradient-to-br from-accent-primary/15 to-highlight/15 text-sm font-bold text-accent-primary">
                   {i + 1}
                 </div>
-                <span style={{ fontSize: 15, color: "var(--text-primary)", lineHeight: 1.5 }}>{step}</span>
+                <span className="text-[15px] leading-relaxed text-text-primary">{step}</span>
               </div>
             ))}
           </div>
-          <div style={{ marginTop: 24, textAlign: "center" }}>
-            <Link href="/guide" className="btn-primary" style={{ display: "inline-block", padding: "10px 24px", fontSize: 15, borderRadius: 10 }}>
+          <div className="mt-6 text-center">
+            <Link href="/guide" className="btn-primary inline-block rounded-xl px-6 py-2.5 text-[15px]">
               View Detailed Guide with Images →
             </Link>
           </div>

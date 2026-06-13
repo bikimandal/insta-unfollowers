@@ -20,96 +20,37 @@ export default function StatCard({
   trendUp,
 }: StatCardProps) {
   return (
-    <Link href={href} style={{ textDecoration: "none", color: "inherit" }}>
-      <div
-        className="card"
-        style={{
-          padding: 28,
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
-          height: "100%",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div
-            style={{
-              width: 52,
-              height: 52,
-              borderRadius: 16,
-              background: "linear-gradient(135deg, rgba(255,107,53,0.1), rgba(6,182,212,0.1))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 26,
-              border: "1px solid var(--border-glass)",
-            }}
-          >
+    <Link href={href} className="block h-full text-inherit no-underline">
+      <div className="card relative flex h-full flex-col gap-4 overflow-hidden p-7">
+        <div className="flex items-start justify-between">
+          <div className="flex h-[52px] w-[52px] items-center justify-center rounded-2xl border border-border-glass bg-gradient-to-br from-accent-primary/10 to-highlight/10 text-[26px]">
             {icon}
           </div>
           {trend && (
             <div
-              style={{
-                padding: "4px 10px",
-                borderRadius: 999,
-                background: trendUp ? "rgba(16,185,129,0.1)" : "rgba(239,68,68,0.1)",
-                color: trendUp ? "var(--success)" : "var(--danger)",
-                fontSize: 13,
-                fontWeight: 600,
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-              }}
+              className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[13px] font-semibold ${
+                trendUp ? "bg-success/10 text-success" : "bg-danger/10 text-danger"
+              }`}
             >
-              {trendUp ? <span style={{ fontSize: 16 }}>↑</span> : <span style={{ fontSize: 16 }}>↓</span>} {trend}
+              <span className="text-base">{trendUp ? "↑" : "↓"}</span> {trend}
             </div>
           )}
         </div>
 
         <div>
-          <div
-            className="gradient-text"
-            style={{
-              fontSize: 56,
-              fontWeight: 800,
-              lineHeight: 1,
-              marginBottom: 8,
-              letterSpacing: "-0.03em",
-            }}
-          >
+          <div className="gradient-text mb-2 text-[56px] font-extrabold leading-none tracking-[-0.03em]">
             {value.toLocaleString()}
           </div>
-          <h3
-            style={{
-              fontSize: 18,
-              fontWeight: 600,
-              color: "var(--text-primary)",
-              margin: "0 0 4px",
-            }}
-          >
+          <h3 className="mb-1 text-lg font-semibold text-text-primary">
             {title}
           </h3>
-          <p style={{ margin: 0, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.5 }}>
+          <p className="m-0 text-[14px] leading-relaxed text-text-secondary">
             {description}
           </p>
         </div>
 
         {/* Decorative background glow */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: -20,
-            right: -20,
-            width: 100,
-            height: 100,
-            background: "radial-gradient(circle, var(--accent-primary) 0%, transparent 70%)",
-            opacity: 0.05,
-            filter: "blur(20px)",
-            pointerEvents: "none",
-          }}
-        />
+        <div className="pointer-events-none absolute -bottom-5 -right-5 h-[100px] w-[100px] rounded-full bg-[radial-gradient(circle,var(--color-accent-primary)_0%,transparent_70%)] opacity-5 blur-[20px]" />
       </div>
     </Link>
   );

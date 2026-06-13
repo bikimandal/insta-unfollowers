@@ -11,38 +11,16 @@ interface EmptyStateProps {
 
 export default function EmptyState({ icon = <Search size={32} />, title, description, action }: EmptyStateProps) {
   return (
-    <div
-      className="animate-fade-up"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "80px 24px",
-        textAlign: "center",
-        gap: 16,
-      }}
-    >
-      <div
-        style={{
-          width: 72,
-          height: 72,
-          borderRadius: 20,
-          background: "var(--bg-elevated)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 32,
-        }}
-      >
+    <div className="animate-fade-up flex flex-col items-center justify-center gap-4 px-6 py-20 text-center">
+      <div className="flex h-[72px] w-[72px] items-center justify-center rounded-[20px] bg-bg-elevated text-[32px]">
         {icon}
       </div>
       <div>
-        <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)", margin: "0 0 6px" }}>
+        <h3 className="mb-1.5 text-lg font-bold text-text-primary">
           {title}
         </h3>
         {description && (
-          <p style={{ fontSize: 14, color: "var(--text-muted)", margin: 0, maxWidth: 320 }}>
+          <p className="m-0 max-w-[320px] text-sm text-text-muted">
             {description}
           </p>
         )}

@@ -80,10 +80,10 @@ export default function UserTable({
   }
 
   function sortIcon(field: SortField) {
-    if (sortField !== field) return <ArrowDownUp size={14} style={{ color: "var(--text-muted)", marginLeft: 4, verticalAlign: "middle" }} />;
+    if (sortField !== field) return <ArrowDownUp size={14} className="ml-1 inline-block text-text-muted align-middle" />;
     return sortDir === "asc"
-      ? <ArrowUp size={14} style={{ color: "#818cf8", marginLeft: 4, verticalAlign: "middle" }} />
-      : <ArrowDown size={14} style={{ color: "#818cf8", marginLeft: 4, verticalAlign: "middle" }} />;
+      ? <ArrowUp size={14} className="ml-1 inline-block text-indigo-400 align-middle" />
+      : <ArrowDown size={14} className="ml-1 inline-block text-indigo-400 align-middle" />;
   }
 
   async function handleCopyAll() {
@@ -123,10 +123,10 @@ export default function UserTable({
     <div>
       <ToastContainer />
       {/* Toolbar */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", padding: "16px 20px", borderBottom: "1px solid var(--bg-border)" }}>
-        <div style={{ display: "flex", gap: 6, marginLeft: "auto", flexWrap: "wrap", alignItems: "center" }}>
+      <div className="flex flex-wrap items-center gap-2.5 border-b border-border-glass px-5 py-4">
+        <div className="ml-auto flex flex-wrap items-center gap-1.5">
           {/* View toggle */}
-          <div style={{ display: "flex", background: "var(--bg-slate)", border: "1px solid var(--border-glass)", borderRadius: 10, padding: 4, gap: 4 }}>
+          <div className="flex gap-1 rounded-[10px] border border-border-glass bg-bg-slate p-1">
             {(["table", "grid"] as const).map((mode) => {
               const isActive = viewMode === mode;
               return (
@@ -134,15 +134,11 @@ export default function UserTable({
                   key={mode}
                   onClick={() => setViewMode(mode)}
                   aria-pressed={isActive}
-                  style={{
-                    padding: "6px 14px", borderRadius: 8, border: "none", fontSize: 13, cursor: "pointer",
-                    background: isActive ? "linear-gradient(135deg, var(--accent-primary), var(--highlight))" : "transparent",
-                    color: isActive ? "white" : "var(--text-muted)",
-                    fontWeight: isActive ? 600 : 500,
-                    boxShadow: isActive ? "0 4px 12px rgba(255, 107, 53, 0.3)" : "none",
-                    transition: "all 0.2s ease",
-                    display: "flex", alignItems: "center", gap: 6,
-                  }}
+                  className={`flex cursor-pointer items-center gap-1.5 rounded-lg border-none px-3.5 py-1.5 text-[13px] transition-all duration-200 ${
+                    isActive 
+                      ? "bg-gradient-to-br from-accent-primary to-highlight font-semibold text-white shadow-[0_4px_12px_rgba(255,107,53,0.3)]" 
+                      : "bg-transparent font-medium text-text-muted"
+                  }`}
                 >
                   {mode === "table" ? <><LayoutList size={14} /> List</> : <><Grid size={14} /> Grid</>}
                 </button>
@@ -152,13 +148,13 @@ export default function UserTable({
 
           {showExport && (
             <>
-              <button onClick={handleCopyAll} className="btn-secondary" style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
+              <button onClick={handleCopyAll} className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-[13px]">
                 <Copy size={14} /> Copy All
               </button>
-              <button onClick={handleCSV} className="btn-secondary" style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
+              <button onClick={handleCSV} className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-[13px]">
                 <Download size={14} /> CSV
               </button>
-              <button onClick={handleTXT} className="btn-secondary" style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
+              <button onClick={handleTXT} className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-[13px]">
                 <Download size={14} /> TXT
               </button>
             </>
@@ -170,10 +166,10 @@ export default function UserTable({
       {sorted.length === 0 ? (
         <EmptyState icon={emptyIcon} title={emptyTitle} description={emptyDescription} />
       ) : viewMode === "table" ? (
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
             <thead>
-              <tr style={{ borderBottom: "1px solid var(--bg-border)" }}>
+              <tr className="border-b border-border-glass">
                 {([
                   { field: "username" as SortField, label: "Username" },
                   { field: "timestamp" as SortField, label: "Date Added" },
@@ -181,123 +177,145 @@ export default function UserTable({
                   <th
                     key={field}
                     onClick={() => handleSort(field)}
-                    style={{ padding: "12px 20px", textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--text-muted)", letterSpacing: "0.05em", textTransform: "uppercase", cursor: "pointer", userSelect: "none", whiteSpace: "nowrap" }}
+                    className="cursor-pointer select-none whitespace-nowrap px-5 py-3 text-left text-[12px] font-semibold uppercase tracking-[0.05em] text-text-muted"
                   >
                     {label} {sortIcon(field)}
                   </th>
                 ))}
-                <th style={{ padding: "12px 20px", textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--text-muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+                <th className="px-5 py-3 text-left text-[12px] font-semibold uppercase tracking-[0.05em] text-text-muted">
                   Status
                 </th>
-                <th style={{ padding: "12px 20px" }} />
+                <th className="px-5 py-3" />
               </tr>
             </thead>
             <tbody>
-              {paged.map((user, i) => (
-                <tr
-                  key={user.username}
-                  className={`table-row ${status === "not-following-back" ? "warning-row" : ""} ${visited.has(user.username) ? "visited-row" : ""}`}
-                  style={{ animationDelay: `${i * 15}ms` }}
-                >
-                  <td style={{ padding: "13px 20px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <div style={{ width: 34, height: 34, borderRadius: "50%", background: avatarColor(user.username), display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "white", flexShrink: 0 }}>
-                        {user.username[0]?.toUpperCase() ?? "?"}
+              {paged.map((user, i) => {
+                const isWarning = status === "not-following-back";
+                const isVisited = visited.has(user.username);
+                
+                return (
+                  <tr
+                    key={user.username}
+                    className={`border-b border-border-glass transition-all duration-150 ${
+                      isVisited 
+                        ? "border-l-4 border-l-success bg-success/10 hover:bg-success/20" 
+                        : isWarning 
+                          ? "border-l-4 border-l-danger hover:border-l-danger hover:bg-danger/5" 
+                          : "hover:border-l-2 hover:border-l-accent-primary hover:bg-white/5"
+                    }`}
+                    style={{ animationDelay: `${i * 15}ms` }}
+                  >
+                    <td className="px-5 py-3.5">
+                      <div className="flex items-center gap-3">
+                        <div 
+                          className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-[14px] font-bold text-white"
+                          style={{ background: avatarColor(user.username) }}
+                        >
+                          {user.username[0]?.toUpperCase() ?? "?"}
+                        </div>
+                        <a
+                          href={`https://www.instagram.com/${user.username}/`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => handleVisit(user.username)}
+                          className="text-[14px] font-medium text-text-primary no-underline transition-colors duration-150 hover:text-indigo-400"
+                        >
+                          @{user.username}
+                        </a>
                       </div>
-                      <a
-                        href={`https://www.instagram.com/${user.username}/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => handleVisit(user.username)}
-                        style={{ color: "var(--text-primary)", fontWeight: 500, fontSize: 14, textDecoration: "none", transition: "color 0.15s" }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "#818cf8")}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
-                      >
-                        @{user.username}
-                      </a>
-                    </div>
-                  </td>
-                  <td style={{ padding: "13px 20px", fontSize: 13, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
-                    {formatDate(user.timestamp)}
-                  </td>
-                  <td style={{ padding: "13px 20px" }}>
-                    <Badge status={status} />
-                  </td>
-                  <td style={{ padding: "13px 20px", textAlign: "right" }}>
-                    <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-                      <button
-                        onClick={() => handleCopyOne(user.username)}
-                        className="btn-secondary"
-                        style={{ fontSize: 12, padding: "4px 10px", display: "flex", alignItems: "center", gap: 4 }}
-                      >
-                        <Copy size={12} /> Copy
-                      </button>
-                      <a
-                        href={`https://www.instagram.com/${user.username}/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => handleVisit(user.username)}
-                        className="btn-primary"
-                        style={{ fontSize: 12, padding: "4px 10px", display: "flex", alignItems: "center", gap: 4 }}
-                      >
-                        Visit
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="whitespace-nowrap px-5 py-3.5 text-[13px] text-text-muted">
+                      {formatDate(user.timestamp)}
+                    </td>
+                    <td className="px-5 py-3.5">
+                      <Badge status={status} />
+                    </td>
+                    <td className="px-5 py-3.5 text-right">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => handleCopyOne(user.username)}
+                          className="btn-secondary flex items-center gap-1 px-2.5 py-1 text-[12px]"
+                        >
+                          <Copy size={12} /> Copy
+                        </button>
+                        <a
+                          href={`https://www.instagram.com/${user.username}/`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => handleVisit(user.username)}
+                          className="btn-primary flex items-center gap-1 px-2.5 py-1 text-[12px]"
+                        >
+                          Visit
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, padding: 20 }}>
-          {paged.map((user, i) => (
-            <div
-              key={user.username}
-              className={`card animate-fade-up ${status === "not-following-back" ? "warning-card" : ""} ${visited.has(user.username) ? "visited-card" : ""}`}
-              style={{ padding: "16px", animationDelay: `${i * 20}ms`, display: "flex", flexDirection: "column", gap: 10 }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ width: 40, height: 40, borderRadius: "50%", background: avatarColor(user.username), display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "white", flexShrink: 0 }}>
-                  {user.username[0]?.toUpperCase() ?? "?"}
-                </div>
-                <div style={{ minWidth: 0 }}>
-                  <a
-                    href={`https://www.instagram.com/${user.username}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => handleVisit(user.username)}
-                    style={{ color: "var(--text-primary)", fontWeight: 600, fontSize: 14, textDecoration: "none", display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 p-5">
+          {paged.map((user, i) => {
+            const isWarning = status === "not-following-back";
+            const isVisited = visited.has(user.username);
+            
+            return (
+              <div
+                key={user.username}
+                className={`card animate-fade-up flex flex-col gap-2.5 p-4 ${
+                  isVisited 
+                    ? "border-l-4 border-l-success border-success/30 bg-success/10 hover:border-success hover:bg-success/20" 
+                    : isWarning 
+                      ? "border-l-4 border-l-danger hover:border-l-danger hover:bg-danger/20 hover:shadow-[0_25px_50px_-12px_rgba(239,68,68,0.2)]" 
+                      : ""
+                }`}
+                style={{ animationDelay: `${i * 20}ms` }}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div 
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-base font-bold text-white"
+                    style={{ background: avatarColor(user.username) }}
                   >
-                    @{user.username}
-                  </a>
-                  <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{formatDate(user.timestamp)}</div>
+                    {user.username[0]?.toUpperCase() ?? "?"}
+                  </div>
+                  <div className="min-w-0">
+                    <a
+                      href={`https://www.instagram.com/${user.username}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => handleVisit(user.username)}
+                      className="block truncate whitespace-nowrap text-[14px] font-semibold text-text-primary no-underline transition-colors hover:text-indigo-400"
+                    >
+                      @{user.username}
+                    </a>
+                    <div className="text-[11px] text-text-muted">{formatDate(user.timestamp)}</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-2 mt-1">
+                  <Badge status={status} />
+                  <div className="flex gap-1.5">
+                    <button
+                      onClick={() => handleCopyOne(user.username)}
+                      className="btn-secondary flex items-center gap-1 px-2 py-1 text-[11px]"
+                    >
+                      <Copy size={11} /> Copy
+                    </button>
+                    <a
+                      href={`https://www.instagram.com/${user.username}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => handleVisit(user.username)}
+                      className="btn-primary flex items-center gap-1 px-2 py-1 text-[11px]"
+                    >
+                      Visit
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-                <Badge status={status} />
-                <div style={{ display: "flex", gap: 6 }}>
-                  <button
-                    onClick={() => handleCopyOne(user.username)}
-                    className="btn-secondary"
-                    style={{ fontSize: 11, padding: "3px 8px", display: "flex", alignItems: "center", gap: 4 }}
-                  >
-                    <Copy size={11} /> Copy
-                  </button>
-                  <a
-                    href={`https://www.instagram.com/${user.username}/`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => handleVisit(user.username)}
-                    className="btn-primary"
-                    style={{ fontSize: 11, padding: "3px 8px", display: "flex", alignItems: "center", gap: 4 }}
-                  >
-                    Visit
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 

@@ -10,9 +10,9 @@ interface ToastProps {
 
 export function Toast({ message, type = "success", onClose }: ToastProps) {
   const colors = {
-    success: { bg: "var(--success-light)", border: "rgba(16,185,129,0.3)", icon: "✓", color: "#34d399" },
-    error: { bg: "var(--danger-light)", border: "rgba(239,68,68,0.3)", icon: "✕", color: "#f87171" },
-    info: { bg: "var(--primary-light)", border: "rgba(99,102,241,0.3)", icon: "ℹ", color: "#818cf8" },
+    success: { bg: "bg-success/10", border: "border-success/30", icon: "✓", color: "text-success" },
+    error: { bg: "bg-danger/10", border: "border-danger/30", icon: "✕", color: "text-danger" },
+    info: { bg: "bg-accent-primary/10", border: "border-accent-primary/30", icon: "ℹ", color: "text-accent-primary" },
   };
   const c = colors[type];
 
@@ -23,53 +23,17 @@ export function Toast({ message, type = "success", onClose }: ToastProps) {
 
   return (
     <div
-      className="animate-toast-in"
-      style={{
-        position: "fixed",
-        bottom: 24,
-        right: 24,
-        zIndex: 9999,
-        background: "var(--bg-surface)",
-        border: `1px solid ${c.border}`,
-        borderRadius: 12,
-        padding: "12px 18px",
-        display: "flex",
-        alignItems: "center",
-        gap: 12,
-        minWidth: 260,
-        maxWidth: 400,
-        boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
-      }}
+      className={`animate-toast-in fixed bottom-6 right-6 z-[9999] flex min-w-[260px] max-w-[400px] items-center gap-3 rounded-xl border bg-bg-surface px-[18px] py-3 shadow-[0_20px_60px_rgba(0,0,0,0.5)] ${c.border}`}
     >
       <span
-        style={{
-          width: 28,
-          height: 28,
-          borderRadius: "50%",
-          background: c.bg,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 13,
-          color: c.color,
-          fontWeight: 700,
-          flexShrink: 0,
-        }}
+        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[13px] font-bold ${c.bg} ${c.color}`}
       >
         {c.icon}
       </span>
-      <span style={{ fontSize: 14, color: "var(--text-primary)", flex: 1 }}>{message}</span>
+      <span className="flex-1 text-[14px] text-text-primary">{message}</span>
       <button
         onClick={onClose}
-        style={{
-          background: "none",
-          border: "none",
-          color: "var(--text-muted)",
-          cursor: "pointer",
-          fontSize: 16,
-          padding: 2,
-          lineHeight: 1,
-        }}
+        className="cursor-pointer border-none bg-transparent p-0.5 text-base leading-none text-text-muted transition-colors hover:text-text-primary"
       >
         ✕
       </button>

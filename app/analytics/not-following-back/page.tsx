@@ -32,51 +32,38 @@ export default function NotFollowingBackPage() {
 
   return (
     <div>
-      <div className="animate-fade-up" style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div
-              style={{
-                width: 56,
-                height: 56,
-                borderRadius: 16,
-                background: "linear-gradient(135deg, #ef4444, #f97316)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 28,
-                flexShrink: 0,
-                color: "white",
-                boxShadow: "0 10px 25px -5px rgba(239, 68, 68, 0.4)",
-              }}
-            >
+      <div className="animate-fade-up mb-7">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 text-[28px] text-white shadow-[0_10px_25px_-5px_rgba(239,68,68,0.4)]">
               <AlertTriangle size={28} />
             </div>
             <div>
-              <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: "-0.02em", margin: 0 }}>
+              <h1 className="m-0 text-[26px] font-extrabold tracking-[-0.02em]">
                 Not Following Back
               </h1>
-              <p style={{ color: "var(--text-muted)", fontSize: 14, margin: "4px 0 0" }}>
+              <p className="mt-1 text-[14px] text-text-muted">
                 {users.length} accounts you follow that don{"'"}t follow you back
               </p>
             </div>
           </div>
           {users.length > 0 && (
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <button onClick={handleCopyAll} className="btn-primary" style={{ fontSize: 14, background: "linear-gradient(135deg, #ef4444, #f97316)", boxShadow: "0 10px 25px -5px rgba(239,68,68,0.3)", display: "flex", alignItems: "center", gap: 6 }}>
+            <div className="flex flex-wrap gap-2">
+              <button 
+                onClick={handleCopyAll} 
+                className="btn-primary flex items-center gap-1.5 bg-gradient-to-br from-red-500 to-orange-500 px-4 py-2 text-[14px] shadow-[0_10px_25px_-5px_rgba(239,68,68,0.3)] hover:from-red-600 hover:to-orange-600"
+              >
                 <Copy size={16} /> Copy All Usernames
               </button>
               <button
                 onClick={() => { downloadCSV(users, "not-following-back.csv"); show("CSV downloaded!", "success"); }}
-                className="btn-secondary"
-                style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}
+                className="btn-secondary flex items-center gap-1.5 px-3 py-2 text-[13px]"
               >
                 <Download size={14} /> Download CSV
               </button>
               <button
                 onClick={() => { downloadTXT(users, "not-following-back.txt"); show("TXT downloaded!", "success"); }}
-                className="btn-secondary"
-                style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}
+                className="btn-secondary flex items-center gap-1.5 px-3 py-2 text-[13px]"
               >
                 <Download size={14} /> Download TXT
               </button>
@@ -88,20 +75,7 @@ export default function NotFollowingBackPage() {
       {/* Warning banner */}
       {users.length > 0 && (
         <div
-          className="animate-fade-up"
-          style={{
-            marginBottom: 20,
-            padding: "14px 18px",
-            background: "linear-gradient(135deg, rgba(239,68,68,0.15), rgba(249,115,22,0.15))",
-            border: "1px solid rgba(239,68,68,0.3)",
-            borderRadius: 12,
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            fontSize: 14,
-            color: "#f87171",
-            animationDelay: "40ms",
-          }}
+          className="animate-fade-up mb-5 flex items-center gap-3 rounded-xl border border-red-500/30 bg-gradient-to-br from-red-500/15 to-orange-500/15 px-[18px] py-[14px] text-[14px] text-red-400 [animation-delay:40ms]"
         >
           <AlertTriangle size={20} />
           <span>
@@ -111,12 +85,12 @@ export default function NotFollowingBackPage() {
         </div>
       )}
 
-      <div className="card animate-fade-up" style={{ animationDelay: "80ms", overflow: "hidden" }}>
+      <div className="card animate-fade-up overflow-hidden [animation-delay:80ms]">
         <UserTable
           users={users}
           status="not-following-back"
           showExport={false}
-          emptyIcon={<CheckCircle2 size={32} color="var(--success)" />}
+          emptyIcon={<CheckCircle2 size={32} className="text-success" />}
           emptyTitle="Everyone follows you back!"
           emptyDescription="All accounts you follow also follow you back. Great engagement!"
         />

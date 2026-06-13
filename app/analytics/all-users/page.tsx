@@ -88,8 +88,8 @@ export default function AllUsersPage() {
   }
 
   function sortIcon(field: SortField) {
-    if (sortField !== field) return <span style={{ color: "var(--text-muted)", marginLeft: 4 }}>↕</span>;
-    return <span style={{ color: "#818cf8", marginLeft: 4 }}>{sortDir === "asc" ? "↑" : "↓"}</span>;
+    if (sortField !== field) return <span className="ml-1 text-text-muted">↕</span>;
+    return <span className="ml-1 text-indigo-400">{sortDir === "asc" ? "↑" : "↓"}</span>;
   }
 
   const handleCopyOne = useCallback(async (username: string) => {
@@ -122,14 +122,14 @@ export default function AllUsersPage() {
   return (
     <div>
       <ToastContainer />
-      <div className="animate-fade-up" style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-          <div style={{ width: 48, height: 48, borderRadius: 14, background: "rgba(245,158,11,0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#f59e0b" }}>
+      <div className="animate-fade-up mb-7">
+        <div className="flex flex-wrap items-center gap-3.5">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-500">
             <Users size={24} />
           </div>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: "-0.02em", margin: 0 }}>All Users</h1>
-            <p style={{ color: "var(--text-muted)", fontSize: 14, margin: "4px 0 0" }}>
+            <h1 className="m-0 text-[26px] font-extrabold tracking-[-0.02em]">All Users</h1>
+            <p className="mt-1 text-[14px] text-text-muted">
               {allUsers.length} unique users across all lists
             </p>
           </div>
@@ -137,32 +137,33 @@ export default function AllUsersPage() {
       </div>
 
       {/* Status filter tabs */}
-      <div className="animate-fade-up" style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap", animationDelay: "40ms" }}>
+      <div className="animate-fade-up mb-5 flex flex-wrap gap-2 [animation-delay:40ms]">
         {STATUS_FILTERS.map(({ value, label, count }) => (
           <button
             key={value}
             onClick={() => { setStatusFilter(value); setPage(1); }}
-            style={{
-              padding: "7px 16px", borderRadius: 999, border: "1px solid", fontSize: 13, fontWeight: 500, cursor: "pointer", transition: "all 0.15s",
-              borderColor: statusFilter === value ? "rgba(99,102,241,0.5)" : "var(--bg-border)",
-              background: statusFilter === value ? "rgba(99,102,241,0.12)" : "var(--bg-elevated)",
-              color: statusFilter === value ? "#818cf8" : "var(--text-secondary)",
-            }}
+            className={`cursor-pointer rounded-full border px-4 py-1.5 text-[13px] font-medium transition-all duration-150 ${
+              statusFilter === value 
+                ? "border-indigo-500/50 bg-indigo-500/10 text-indigo-400" 
+                : "border-border-glass bg-bg-elevated text-text-secondary hover:bg-white/5 hover:text-text-primary"
+            }`}
           >
             {label}{" "}
-            <span style={{ background: statusFilter === value ? "rgba(99,102,241,0.2)" : "var(--bg-border)", padding: "1px 7px", borderRadius: 999, fontSize: 11, fontWeight: 700, marginLeft: 4 }}>
+            <span className={`ml-1 rounded-full px-1.5 py-[1px] text-[11px] font-bold ${
+              statusFilter === value ? "bg-indigo-500/20" : "bg-border-glass"
+            }`}>
               {count}
             </span>
           </button>
         ))}
       </div>
 
-      <div className="card animate-fade-up" style={{ animationDelay: "80ms", overflow: "hidden" }}>
+      <div className="card animate-fade-up overflow-hidden [animation-delay:80ms]">
         {/* Toolbar */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", padding: "16px 20px", borderBottom: "1px solid var(--bg-border)" }}>
-          <div style={{ display: "flex", gap: 6, marginLeft: "auto", flexWrap: "wrap", alignItems: "center" }}>
+        <div className="flex flex-wrap items-center gap-2.5 border-b border-border-glass px-5 py-4">
+          <div className="ml-auto flex flex-wrap items-center gap-1.5">
             {/* View toggle */}
-            <div style={{ display: "flex", background: "var(--bg-slate)", border: "1px solid var(--border-glass)", borderRadius: 10, padding: 4, gap: 4 }}>
+            <div className="flex gap-1 rounded-[10px] border border-border-glass bg-bg-slate p-1">
               {(["table", "grid"] as const).map((mode) => {
                 const isActive = viewMode === mode;
                 return (
@@ -170,15 +171,11 @@ export default function AllUsersPage() {
                     key={mode}
                     onClick={() => setViewMode(mode)}
                     aria-pressed={isActive}
-                    style={{
-                      padding: "6px 14px", borderRadius: 8, border: "none", fontSize: 13, cursor: "pointer",
-                      background: isActive ? "linear-gradient(135deg, var(--accent-primary), var(--highlight))" : "transparent",
-                      color: isActive ? "white" : "var(--text-muted)",
-                      fontWeight: isActive ? 600 : 500,
-                      boxShadow: isActive ? "0 4px 12px rgba(255, 107, 53, 0.3)" : "none",
-                      transition: "all 0.2s ease",
-                      display: "flex", alignItems: "center", gap: 6,
-                    }}
+                    className={`flex cursor-pointer items-center gap-1.5 rounded-lg border-none px-3.5 py-1.5 text-[13px] transition-all duration-200 ${
+                      isActive 
+                        ? "bg-gradient-to-br from-accent-primary to-highlight font-semibold text-white shadow-[0_4px_12px_rgba(255,107,53,0.3)]" 
+                        : "bg-transparent font-medium text-text-muted"
+                    }`}
                   >
                     {mode === "table" ? <><LayoutList size={14} /> List</> : <><Grid size={14} /> Grid</>}
                   </button>
@@ -188,15 +185,13 @@ export default function AllUsersPage() {
 
             <button
               onClick={() => { downloadCSV(filtered, "all-users.csv"); show("CSV downloaded!", "success"); }}
-              className="btn-secondary"
-              style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}
+              className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-[13px]"
             >
               <Download size={14} /> CSV
             </button>
             <button
               onClick={handleCopyAll}
-              className="btn-secondary"
-              style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}
+              className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-[13px]"
             >
               <Copy size={14} /> Copy All
             </button>
@@ -205,15 +200,15 @@ export default function AllUsersPage() {
 
         {filtered.length === 0 ? (
           <EmptyState
-            icon={<Search size={32} color="var(--text-muted)" />}
+            icon={<Search size={32} className="text-text-muted" />}
             title="No users found"
             description="Try a different filter."
           />
         ) : viewMode === "table" ? (
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
               <thead>
-                <tr style={{ borderBottom: "1px solid var(--bg-border)" }}>
+                <tr className="border-b border-border-glass">
                   {([
                     { field: "username" as SortField, label: "Username" },
                     { field: "status" as SortField, label: "Status" },
@@ -222,45 +217,45 @@ export default function AllUsersPage() {
                     <th
                       key={field}
                       onClick={() => handleSort(field)}
-                      style={{ padding: "12px 20px", textAlign: "left", fontSize: 12, fontWeight: 600, color: "var(--text-muted)", letterSpacing: "0.05em", textTransform: "uppercase", cursor: "pointer", userSelect: "none", whiteSpace: "nowrap" }}
+                      className="cursor-pointer select-none whitespace-nowrap px-5 py-3 text-left text-[12px] font-semibold uppercase tracking-[0.05em] text-text-muted"
                     >
                       {label} {sortIcon(field)}
                     </th>
                   ))}
-                  <th style={{ padding: "12px 20px" }} />
+                  <th className="px-5 py-3" />
                 </tr>
               </thead>
               <tbody>
                 {paged.map((user, i) => (
-                  <tr key={user.username} className="table-row" style={{ animationDelay: `${i * 15}ms` }}>
-                    <td style={{ padding: "13px 20px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <div style={{ width: 34, height: 34, borderRadius: "50%", background: avatarColor(user.username), display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "white", flexShrink: 0 }}>
+                  <tr key={user.username} className="hover:border-l-2 hover:border-l-accent-primary hover:bg-white/5 border-b border-border-glass transition-all duration-150" style={{ animationDelay: `${i * 15}ms` }}>
+                    <td className="px-5 py-3.5">
+                      <div className="flex items-center gap-3">
+                        <div 
+                          className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-[14px] font-bold text-white"
+                          style={{ background: avatarColor(user.username) }}
+                        >
                           {user.username[0]?.toUpperCase() ?? "?"}
                         </div>
                         <a
                           href={`https://www.instagram.com/${user.username}/`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ color: "var(--text-primary)", fontWeight: 500, fontSize: 14, textDecoration: "none", transition: "color 0.15s" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = "#818cf8")}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                          className="text-[14px] font-medium text-text-primary no-underline transition-colors duration-150 hover:text-indigo-400"
                         >
                           @{user.username}
                         </a>
                       </div>
                     </td>
-                    <td style={{ padding: "13px 20px" }}>
+                    <td className="px-5 py-3.5">
                       <Badge status={user.status} />
                     </td>
-                    <td style={{ padding: "13px 20px", fontSize: 13, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                    <td className="whitespace-nowrap px-5 py-3.5 text-[13px] text-text-muted">
                       {formatDate(user.timestamp)}
                     </td>
-                    <td style={{ padding: "13px 20px", textAlign: "right" }}>
+                    <td className="px-5 py-3.5 text-right">
                       <button
                         onClick={() => handleCopyOne(user.username)}
-                        className="btn-secondary"
-                        style={{ fontSize: 12, padding: "4px 10px", display: "flex", alignItems: "center", gap: 4 }}
+                        className="btn-secondary flex items-center gap-1 px-2.5 py-1 text-[12px] ml-auto"
                       >
                         <Copy size={12} /> Copy
                       </button>
@@ -271,35 +266,37 @@ export default function AllUsersPage() {
             </table>
           </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, padding: 20 }}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 p-5">
             {paged.map((user, i) => (
               <div
                 key={user.username}
-                className="card animate-fade-up"
-                style={{ padding: "14px", display: "flex", flexDirection: "column", gap: 10, animationDelay: `${i * 20}ms` }}
+                className="card animate-fade-up flex flex-col gap-2.5 p-3.5"
+                style={{ animationDelay: `${i * 20}ms` }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: avatarColor(user.username), display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "white", flexShrink: 0 }}>
+                <div className="flex items-center gap-2.5">
+                  <div 
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[14px] font-bold text-white"
+                    style={{ background: avatarColor(user.username) }}
+                  >
                     {user.username[0]?.toUpperCase() ?? "?"}
                   </div>
-                  <div style={{ minWidth: 0 }}>
+                  <div className="min-w-0">
                     <a
                       href={`https://www.instagram.com/${user.username}/`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: "var(--text-primary)", fontWeight: 600, fontSize: 13, textDecoration: "none", display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                      className="block truncate whitespace-nowrap text-[13px] font-semibold text-text-primary no-underline transition-colors hover:text-indigo-400"
                     >
                       @{user.username}
                     </a>
-                    <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{formatDate(user.timestamp)}</div>
+                    <div className="text-[11px] text-text-muted">{formatDate(user.timestamp)}</div>
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+                <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
                   <Badge status={user.status} />
                   <button
                     onClick={() => handleCopyOne(user.username)}
-                    className="btn-secondary"
-                    style={{ fontSize: 11, padding: "3px 8px", display: "flex", alignItems: "center", gap: 4 }}
+                    className="btn-secondary flex items-center gap-1 px-2 py-0.5 text-[11px]"
                   >
                     <Copy size={11} /> Copy
                   </button>

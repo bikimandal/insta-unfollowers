@@ -1,6 +1,6 @@
 import { ArrowLeft, ExternalLink, Download, Smartphone, Settings, Calendar, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import Header from "@/components/Header";
 import type { ReactNode } from "react";
 
 interface Step {
@@ -21,7 +21,7 @@ const steps: Step[] = [
           href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "var(--highlight)", textDecoration: "underline", fontWeight: 600 }}
+          className="font-semibold text-highlight underline"
         >
           Download Your Information
         </a>{" "}
@@ -34,7 +34,7 @@ const steps: Step[] = [
     title: "Create Export",
     description: (
       <>
-        Click the blue <strong style={{ color: "var(--accent-primary)" }}>&apos;Create export&apos;</strong> button.
+        Click the blue <strong className="text-accent-primary">&apos;Create export&apos;</strong> button.
         Then select the Instagram account you want to analyze.
       </>
     ),
@@ -46,7 +46,7 @@ const steps: Step[] = [
     description: (
       <>
         When asked where to export, choose the{" "}
-        <strong style={{ color: "var(--accent-primary)" }}>&apos;Export to device&apos;</strong> option.
+        <strong className="text-accent-primary">&apos;Export to device&apos;</strong> option.
       </>
     ),
     images: ["/guide/img2.png"],
@@ -56,9 +56,9 @@ const steps: Step[] = [
     title: "Customize Information",
     description: (
       <>
-        Choose <strong style={{ color: "var(--text-primary)" }}>&apos;Customize information&apos;</strong> instead
+        Choose <strong className="text-text-primary">&apos;Customize information&apos;</strong> instead
         of all available data. Under the Connections section, check ONLY the{" "}
-        <strong style={{ color: "var(--highlight)" }}>&apos;Followers and following&apos;</strong> option.
+        <strong className="text-highlight">&apos;Followers and following&apos;</strong> option.
       </>
     ),
     images: ["/guide/img3.png", "/guide/img4.png"],
@@ -68,8 +68,8 @@ const steps: Step[] = [
     title: "Format & Date Range",
     description: (
       <>
-        Set the Date Range to <strong style={{ color: "var(--highlight)" }}>&apos;All time&apos;</strong> and the
-        Format to <strong style={{ color: "var(--highlight)" }}>&apos;JSON&apos;</strong>. Media quality does not
+        Set the Date Range to <strong className="text-highlight">&apos;All time&apos;</strong> and the
+        Format to <strong className="text-highlight">&apos;JSON&apos;</strong>. Media quality does not
         matter.
       </>
     ),
@@ -81,7 +81,7 @@ const steps: Step[] = [
     description: (
       <>
         Submit your request. Instagram will email you a link when your file is ready.{" "}
-        <strong style={{ color: "var(--text-primary)" }}>
+        <strong className="text-text-primary">
           Download it, unzip it, and drop the files onto our home page!
         </strong>
       </>
@@ -91,76 +91,69 @@ const steps: Step[] = [
 
 export default function GuidePage() {
   return (
-    <main style={{ minHeight: "100dvh", padding: "40px 24px", background: "var(--bg-dark)" }}>
-      <div style={{ maxWidth: 800, margin: "0 auto" }}>
-        <Link
-          href="/"
-          style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "var(--text-secondary)", textDecoration: "none", marginBottom: 32, fontWeight: 500, transition: "color 0.15s" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
-        >
-          <ArrowLeft size={20} /> Back to Home
-        </Link>
-
-        <h1 style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 800, marginBottom: 16, letterSpacing: "-0.03em" }}>
-          How to get your <span className="gradient-text">Instagram Data</span>
-        </h1>
-        <p style={{ fontSize: 18, color: "var(--text-secondary)", marginBottom: 48, lineHeight: 1.6 }}>
-          Follow these exact steps to export your followers and following data in the correct JSON format.
-        </p>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          {steps.map((step, i) => (
-            <div
-              key={i}
-              className="card animate-fade-up"
-              style={{ padding: 32, display: "flex", gap: 24, alignItems: "flex-start", animationDelay: `${i * 100}ms` }}
-            >
-              <div
-                style={{
-                  width: 56, height: 56, borderRadius: 16,
-                  background: "linear-gradient(135deg, rgba(255,107,53,0.1), rgba(6,182,212,0.1))",
-                  border: "1px solid rgba(255,255,255,0.05)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  color: "var(--accent-primary)", flexShrink: 0,
-                }}
-              >
-                {step.icon}
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ color: "var(--highlight)", fontSize: 13, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 8 }}>
-                  Step {i + 1}
-                </div>
-                <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--text-primary)", marginBottom: 12 }}>
-                  {step.title}
-                </h2>
-                <div style={{ fontSize: 17, color: "rgba(255, 255, 255, 0.9)", lineHeight: 1.6, fontWeight: 400 }}>
-                  {step.description}
-                </div>
-
-                {step.images && step.images.length > 0 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 24 }}>
-                    {step.images.map((img, imgIdx) => (
-                      <img
-                        key={imgIdx}
-                        src={img}
-                        alt={`Step ${i + 1} screenshot ${imgIdx + 1}`}
-                        style={{ maxWidth: "100%", borderRadius: 12, border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 10px 30px rgba(0,0,0,0.2)" }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="animate-fade-up" style={{ marginTop: 48, textAlign: "center", animationDelay: "600ms" }}>
-          <Link href="/" className="btn-primary" style={{ padding: "16px 40px", fontSize: 18, display: "inline-block", borderRadius: 12 }}>
-            I have my files ready →
+    <div className="flex min-h-[100dvh] flex-col bg-bg-dark">
+      <Header />
+      <main className="flex-1 px-6 py-10">
+        <div className="mx-auto w-full max-w-[800px]">
+          <Link
+            href="/"
+            className="hover-link mb-8 inline-flex items-center gap-2 font-medium text-inherit"
+          >
+            <ArrowLeft size={20} /> Back to Home
           </Link>
+
+          <h1 className="mb-4 text-[clamp(32px,5vw,48px)] font-extrabold tracking-[-0.03em]">
+            How to get your <span className="gradient-text">Instagram Data</span>
+          </h1>
+          <p className="mb-12 text-lg leading-relaxed text-text-secondary">
+            Follow these exact steps to export your followers and following data in the correct JSON format.
+          </p>
+
+          <div className="flex flex-col gap-6">
+            {steps.map((step, i) => (
+              <div
+                key={i}
+                className="card animate-fade-up flex items-start gap-6 p-8"
+                style={{ animationDelay: `${i * 100}ms` }}
+              >
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-gradient-to-br from-accent-primary/10 to-highlight/10 text-accent-primary">
+                  {step.icon}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 text-[13px] font-bold uppercase tracking-[0.05em] text-highlight">
+                    Step {i + 1}
+                  </div>
+                  <h2 className="mb-3 text-[22px] font-bold text-text-primary">
+                    {step.title}
+                  </h2>
+                  <div className="text-[17px] font-normal leading-relaxed text-white/90">
+                    {step.description}
+                  </div>
+
+                  {step.images && step.images.length > 0 && (
+                    <div className="mt-6 flex flex-col gap-4">
+                      {step.images.map((img, imgIdx) => (
+                        <img
+                          key={imgIdx}
+                          src={img}
+                          alt={`Step ${i + 1} screenshot ${imgIdx + 1}`}
+                          className="max-w-full rounded-xl border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="animate-fade-up mt-12 text-center [animation-delay:600ms]">
+            <Link href="/" className="btn-primary inline-block rounded-xl px-10 py-4 text-lg">
+              I have my files ready →
+            </Link>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

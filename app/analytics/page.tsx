@@ -26,32 +26,25 @@ export default function AnalyticsDashboard() {
 
   return (
     <div>
-      <div className="animate-fade-up" style={{ marginBottom: 40 }}>
-        <h1 style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-0.03em", margin: "0 0 8px" }}>
+      <div className="animate-fade-up mb-10">
+        <h1 className="mb-2 text-[32px] font-extrabold tracking-[-0.03em]">
           Dashboard Overview
         </h1>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, color: "var(--text-secondary)", fontSize: 15 }}>
+        <div className="flex items-center gap-3 text-[15px] text-text-secondary">
           <span>Analysis complete</span>
-          <span style={{ color: "var(--border-glass)" }}>•</span>
+          <span className="text-border-glass">•</span>
           <span>{totalUsers.toLocaleString()} unique accounts processed</span>
         </div>
       </div>
 
-      <div
-        className="stagger"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: 24,
-        }}
-      >
+      <div className="stagger grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
         <div className="animate-fade-up">
           <StatCard
             title="Followers"
             value={data.followers.length}
             description="Accounts that follow your profile."
             href="/analytics/followers"
-            icon={<Users size={28} color="var(--accent-primary)" />}
+            icon={<Users size={28} className="text-accent-primary" />}
             trend={followRatio + "x ratio"}
             trendUp={parseFloat(followRatio) >= 1}
           />
@@ -62,7 +55,7 @@ export default function AnalyticsDashboard() {
             value={data.following.length}
             description="Accounts you are currently following."
             href="/analytics/following"
-            icon={<User size={28} color="var(--accent-primary)" />}
+            icon={<User size={28} className="text-accent-primary" />}
           />
         </div>
         <div className="animate-fade-up">
@@ -71,7 +64,7 @@ export default function AnalyticsDashboard() {
             value={data.mutual.length}
             description="Accounts where you follow each other."
             href="/analytics/mutual"
-            icon={<Handshake size={28} color="var(--accent-primary)" />}
+            icon={<Handshake size={28} className="text-accent-primary" />}
           />
         </div>
         <div className="animate-fade-up">
@@ -80,7 +73,7 @@ export default function AnalyticsDashboard() {
             value={data.notFollowingBack.length}
             description="Accounts you follow but don't follow you back."
             href="/analytics/not-following-back"
-            icon={<AlertTriangle size={28} color="var(--danger)" />}
+            icon={<AlertTriangle size={28} className="text-danger" />}
           />
         </div>
       </div>

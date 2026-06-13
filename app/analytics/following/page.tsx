@@ -17,30 +17,18 @@ export default function FollowingPage() {
 
   return (
     <div>
-      <div className="animate-fade-up" style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 14,
-              background: "rgba(99,102,241,0.15)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 22,
-              flexShrink: 0,
-            }}
-          >
-            <User size={24} color="#6366f1" />
+      <div className="animate-fade-up mb-7">
+        <div className="flex flex-wrap items-center gap-3.5">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-indigo-500/15 text-[22px]">
+            <User size={24} className="text-indigo-500" />
           </div>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, letterSpacing: "-0.02em", margin: 0 }}>
+            <h1 className="m-0 text-[26px] font-extrabold tracking-[-0.02em]">
               Following
             </h1>
-            <p style={{ color: "var(--text-muted)", fontSize: 14, margin: "4px 0 0" }}>
+            <p className="mt-1 text-[14px] text-text-muted">
               {data.following.length} accounts you follow ·{" "}
-              <span style={{ color: "#f87171" }}>
+              <span className="text-red-400">
                 {data.notFollowingBack.length} don{"'"}t follow back
               </span>
             </p>
@@ -48,11 +36,11 @@ export default function FollowingPage() {
         </div>
       </div>
 
-      <div className="card animate-fade-up" style={{ animationDelay: "60ms", overflow: "hidden" }}>
+      <div className="card animate-fade-up overflow-hidden [animation-delay:60ms]">
         <UserTable
           users={data.following}
           status="following"
-          emptyIcon={<UserX size={32} color="var(--text-muted)" />}
+          emptyIcon={<UserX size={32} className="text-text-muted" />}
           emptyTitle="No following data"
           emptyDescription="Upload a following.json file to see this list."
         />
