@@ -14,7 +14,7 @@ const inter = Inter({
 import { APP_NAME, PORTFOLIO_URL, APP_ICON } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ghosters.vercel.app'),
+  metadataBase: new URL('https://ghosters.fun'),
   title: {
     default: `${APP_NAME} — Find Who Unfollowed You on Instagram | Free & Secure Tracker`,
     template: `%s | ${APP_NAME} - Instagram Tracker`,
