@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { clearAnalytics } from "@/lib/storage";
 import { BarChart2, User, Users, Handshake, AlertTriangle, Search, Menu, X } from "lucide-react";
-import { APP_NAME } from "@/lib/constants";
+import { APP_NAME, APP_ICON } from "@/lib/constants";
 
 const NAV_ITEMS = [
   { href: "/analytics", label: "Dashboard", icon: <BarChart2 size={16} /> },
@@ -32,11 +33,9 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/analytics"
-          className="flex items-center gap-3 no-underline"
+          className="flex items-center gap-3 no-underline transition-transform hover:scale-105"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent-primary to-highlight text-lg shadow-[0_4px_15px_rgba(255,107,53,0.4)]">
-            <BarChart2 size={20} color="white" strokeWidth={2.5} />
-          </div>
+          <Image src={APP_ICON} alt={APP_NAME} width={36} height={36} className="h-9 w-9 drop-shadow-[0_4px_15px_rgba(255,107,53,0.2)]" />
           <span className="gradient-text text-[20px] font-extrabold tracking-[-0.03em]">
             {APP_NAME}
           </span>

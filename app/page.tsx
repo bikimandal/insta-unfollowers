@@ -4,16 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import FileUpload from "@/components/FileUpload";
-import { INSTAGRAM_ICON } from "@/lib/constants";
+import { APP_ICON } from "@/lib/constants";
 import { Users, Zap, Handshake, BarChart2, Download, Lock } from "lucide-react";
 
+import faqData from "@/data/faqs.json";
+
 const FEATURES = [
-  { icon: <Users size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Follower Analysis", desc: "See exactly who follows you and who you follow back." },
-  { icon: <Zap size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Non-Reciprocal Finds", desc: "Quickly identify accounts you follow that don't follow back." },
-  { icon: <Handshake size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Mutual Connections", desc: "Discover shared followers and mutual relationships." },
-  { icon: <BarChart2 size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Detailed Stats", desc: "Rich charts and statistics about your Instagram network." },
-  { icon: <Download size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Export Data", desc: "Download CSV or TXT lists of any user group." },
-  { icon: <Lock size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "100% Private", desc: "Your data never leaves your browser — fully client-side." },
+  { icon: <Zap size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Find Who Ghosted You", desc: "Instantly see exactly who you are following that isn't following you back." },
+  { icon: <Lock size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "100% Private & Secure", desc: "Your data never leaves your browser. No login or passwords required." },
+  { icon: <Users size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Follower Analytics", desc: "Get a complete breakdown of everyone who follows you and who you follow." },
+  { icon: <Handshake size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Mutual Connections", desc: "Discover shared followers and perfectly reciprocal relationships." },
+  { icon: <Download size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Export Anywhere", desc: "Download beautifully formatted CSV or TXT lists of any user segment." },
+  { icon: <BarChart2 size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Rich Statistics", desc: "Visualize your entire Instagram network with comprehensive charts." },
 ];
 
 export default function HomePage() {
@@ -24,9 +26,10 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="mx-auto flex w-full max-w-[1000px] flex-1 flex-col items-center justify-center px-6 py-20 text-center">
-        <div className="animate-fade-up mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 sm:px-8 sm:py-3 text-[16px] sm:text-[18px] font-medium text-white/90 shadow-lg backdrop-blur-md">
-          <Image src={INSTAGRAM_ICON} alt="Instagram" width={24} height={24} className="opacity-90" />
-          <span>The Ultimate Analytics Tool for Instagram</span>
+        <div className="animate-fade-up mb-8 flex justify-center">
+          <div className="flex h-28 w-28 items-center justify-center rounded-[32px] border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-5 shadow-[0_20px_40px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl transition-transform duration-500 hover:scale-105 hover:shadow-[0_20px_50px_rgba(255,107,53,0.2)]">
+            <Image src={APP_ICON} alt="Ghosters" width={90} height={90} className="drop-shadow-[0_10px_20px_rgba(255,107,53,0.4)]" />
+          </div>
         </div>
 
         <h1 className="animate-fade-up mb-6 text-[clamp(48px,8vw,72px)] font-extrabold leading-tight tracking-tight [animation-delay:40ms]">
@@ -35,7 +38,7 @@ export default function HomePage() {
 
         <div className="animate-fade-up mx-auto mb-12 max-w-[680px] text-[clamp(18px,4vw,22px)] font-normal leading-relaxed text-text-secondary [animation-delay:60ms]">
           <p className="mb-5">
-            Uncover unfollowers. Discover mutuals. Deep analytics instantly.
+            See exactly who's not following you back in seconds. Deep analytics instantly, with zero risk to your account.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[15px] sm:text-[17px] font-medium text-text-primary">
             <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100%</strong> Secure</span>
@@ -71,6 +74,31 @@ export default function HomePage() {
                 {f.desc}
               </p>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="mx-auto w-full max-w-[800px] px-6 py-20">
+        <h2 className="mb-10 text-center text-[clamp(32px,5vw,48px)] font-bold text-text-primary">
+          Frequently Asked <span className="gradient-text">Questions</span>
+        </h2>
+        <div className="flex flex-col gap-4">
+          {faqData.map((faq, index) => (
+            <details
+              key={index}
+              className="group overflow-hidden rounded-[16px] border border-border-glass bg-bg-surface backdrop-blur-md transition-all duration-300 hover:border-accent-primary/30"
+            >
+              <summary className="flex cursor-pointer items-center justify-between px-6 py-5 text-lg font-semibold text-text-primary focus:outline-none">
+                {faq.question}
+                <span className="ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-xl font-light text-accent-primary transition-transform duration-300 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <div className="px-6 pb-6 text-[15px] leading-relaxed text-text-secondary">
+                {faq.answer}
+              </div>
+            </details>
           ))}
         </div>
       </section>

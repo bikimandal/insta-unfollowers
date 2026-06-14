@@ -13,14 +13,25 @@ const inter = Inter({
 import { APP_NAME, PORTFOLIO_URL, APP_ICON } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nofollow.app'),
+  metadataBase: new URL('https://ghosters.vercel.app'),
   title: {
-    default: `${APP_NAME} — The Ultimate Instagram Follower Analytics Tool`,
-    template: `%s | ${APP_NAME}`,
+    default: `${APP_NAME} — Find Who Unfollowed You on Instagram | Free & Secure Tracker`,
+    template: `%s | ${APP_NAME} - Instagram Tracker`,
   },
   description:
-    "Free, privacy-first Instagram follower analytics. Discover unfollowers, mutuals, and ghost followers securely in your browser. 100% private, no login required.",
-  keywords: ["instagram", "followers", "analytics", "unfollowers", "not following back", "instagram tracker", "secure instagram tools", "client side"],
+    "Find out exactly who unfollowed you on Instagram without logging in. Ghosters is a free, 100% private, client-side Instagram analytics tool to track unfollowers, ghost followers, and mutuals safely.",
+  keywords: [
+    "instagram unfollowers",
+    "who unfollowed me on instagram",
+    "instagram followers tracker",
+    "check instagram unfollowers free",
+    "instagram analytics",
+    "instagram ghost followers",
+    "safe instagram unfollower app",
+    "instagram unfollowers no login",
+    "instagram mutual followers tracker",
+    "ghosters app"
+  ],
   authors: [{ name: "Biki", url: PORTFOLIO_URL }],
   creator: "Biki",
   icons: {
@@ -31,14 +42,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: `${APP_NAME} — The Ultimate Instagram Follower Analytics Tool`,
-    description: "Discover unfollowers and analyze your Instagram network securely. 100% private, fully client-side.",
+    title: `${APP_NAME} — Track Your Instagram Unfollowers Securely`,
+    description: "Find out exactly who unfollowed you on Instagram without logging in. 100% private, client-side tracking for ghost followers and mutuals.",
     siteName: APP_NAME,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${APP_NAME} — Instagram Follower Analytics`,
-    description: "Discover unfollowers and analyze your Instagram network securely.",
+    title: `${APP_NAME} — Safe Instagram Unfollower Tracker`,
+    description: "Find out who unfollowed you on Instagram instantly and securely. No login required.",
     creator: "@bikimandal",
   },
   robots: {

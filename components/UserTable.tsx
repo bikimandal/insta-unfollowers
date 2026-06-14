@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import type { InstagramUser, FollowStatus, SortField, SortDirection } from "@/lib/types";
 import Badge from "./Badge";
 import Pagination from "./Pagination";
 import EmptyState from "./EmptyState";
 import { formatDate, downloadCSV, downloadTXT } from "@/lib/parseInstagram";
 import { useToast } from "./Toast";
-import { ArrowDownUp, ArrowUp, ArrowDown, LayoutList, Grid, Copy, Download, ExternalLink } from "lucide-react";
+import { ArrowDownUp, ArrowUp, ArrowDown, LayoutList, Grid, Copy, Download, ExternalLink, Search, X } from "lucide-react";
 import type { ReactNode } from "react";
 
 const PAGE_SIZE = 50;
@@ -34,10 +34,27 @@ export default function UserTable({
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [visited, setVisited] = useState<Set<string>>(new Set());
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const { show, ToastContainer } = useToast();
 
-  // Reset page when users prop changes
-  useEffect(() => { setPage(1); }, [users]);
+  // Keyboard shortcut for search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "f") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Reset page and search when users prop changes
+  useEffect(() => { 
+    setPage(1); 
+    setSearchQuery("");
+  }, [users]);
 
   useEffect(() => {
     try {
@@ -57,17 +74,21 @@ export default function UserTable({
     });
   }, []);
 
-  const sorted = useMemo(() => {
-    return [...users].sort((a, b) => {
+  const filteredAndSorted = useMemo(() => {
+    const filtered = users.filter((u) => 
+      u.username.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    
+    return filtered.sort((a, b) => {
       let cmp = 0;
       if (sortField === "username") cmp = a.username.localeCompare(b.username);
       else if (sortField === "timestamp") cmp = a.timestamp - b.timestamp;
       return sortDir === "asc" ? cmp : -cmp;
     });
-  }, [users, sortField, sortDir]);
+  }, [users, sortField, sortDir, searchQuery]);
 
-  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
-  const paged = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const totalPages = Math.ceil(filteredAndSorted.length / PAGE_SIZE);
+  const paged = filteredAndSorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   function handleSort(field: SortField) {
     if (sortField === field) {
@@ -87,22 +108,22 @@ export default function UserTable({
   }
 
   async function handleCopyAll() {
-    const text = sorted.map((u) => u.username).join("\n");
+    const text = filteredAndSorted.map((u) => u.username).join("\n");
     try {
       await navigator.clipboard.writeText(text);
-      show(`Copied ${sorted.length} usernames!`, "success");
+      show(`Copied ${filteredAndSorted.length} usernames!`, "success");
     } catch {
       show("Failed to copy — please allow clipboard access.", "error");
     }
   }
 
   function handleCSV() {
-    downloadCSV(sorted, `${status}-users.csv`);
+    downloadCSV(filteredAndSorted, `${status}-users.csv`);
     show("CSV downloaded!", "success");
   }
 
   function handleTXT() {
-    downloadTXT(sorted, `${status}-users.txt`);
+    downloadTXT(filteredAndSorted, `${status}-users.txt`);
     show("TXT downloaded!", "success");
   }
 
@@ -123,8 +144,38 @@ export default function UserTable({
     <div>
       <ToastContainer />
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-2.5 border-b border-border-glass px-5 py-4">
-        <div className="ml-auto flex flex-wrap items-center gap-1.5">
+      <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-4 border-b border-border-glass px-5 py-4">
+        
+        {/* Search Bar */}
+        <div className="relative w-full sm:max-w-[300px]">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-text-muted">
+            <Search size={16} />
+          </div>
+          <input
+            ref={searchInputRef}
+            type="text"
+            placeholder="Search username... (Cmd+F)"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setPage(1);
+            }}
+            className="w-full rounded-xl border border-white/10 bg-white/5 py-2 pl-9 pr-10 text-[14px] text-text-primary placeholder:text-text-muted focus:border-accent-primary focus:outline-none focus:ring-1 focus:ring-accent-primary transition-all"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setPage(1);
+              }}
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-text-muted hover:text-white"
+            >
+              <X size={16} />
+            </button>
+          )}
+        </div>
+
+        <div className="flex w-full sm:w-auto flex-wrap items-center gap-1.5">
           {/* View toggle */}
           <div className="flex gap-1 rounded-[10px] border border-border-glass bg-bg-slate p-1">
             {(["table", "grid"] as const).map((mode) => {
@@ -163,8 +214,12 @@ export default function UserTable({
       </div>
 
       {/* Content */}
-      {sorted.length === 0 ? (
-        <EmptyState icon={emptyIcon} title={emptyTitle} description={emptyDescription} />
+      {filteredAndSorted.length === 0 ? (
+        <EmptyState 
+          icon={searchQuery ? <Search size={32} /> : emptyIcon} 
+          title={searchQuery ? "No matches found" : emptyTitle} 
+          description={searchQuery ? `No users matching "${searchQuery}"` : emptyDescription} 
+        />
       ) : viewMode === "table" ? (
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
@@ -314,7 +369,7 @@ export default function UserTable({
         </div>
       )}
 
-      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} totalItems={sorted.length} pageSize={PAGE_SIZE} />
+      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} totalItems={filteredAndSorted.length} pageSize={PAGE_SIZE} />
     </div>
   );
 }
