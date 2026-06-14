@@ -2,68 +2,56 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ExternalLink, Heart } from "lucide-react";
-import { BRAND_NAME, PORTFOLIO_URL, APP_NAME, APP_ICON } from "@/lib/constants";
+import { Link2, User, Code, Briefcase } from "lucide-react";
+import { BRAND_NAME, PORTFOLIO_URL, GITHUB_URL, APP_NAME, APP_ICON } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="mt-auto border-t border-white/5 bg-slate-900/60 p-8 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-8">
         {/* Top row */}
-        <div className="flex flex-wrap items-start justify-between gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
-          <div className="flex max-w-[280px] flex-col gap-2.5">
-            <div className="flex items-center gap-2.5">
-              <Image src={APP_ICON} alt={APP_NAME} width={32} height={32} className="h-8 w-8 drop-shadow-[0_4px_12px_rgba(255,107,53,0.2)]" />
-              <span className="gradient-text text-[17px] font-extrabold tracking-[-0.03em]">
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <Image priority loading="eager" fetchPriority="high" src={APP_ICON} alt={APP_NAME} width={32} height={32} className="h-8 w-8 drop-shadow-[0_4px_12px_rgba(255,107,53,0.2)]" />
+              <span className="gradient-text text-[18px] font-extrabold tracking-[-0.03em]">
                 {APP_NAME}
               </span>
+              <span className="text-text-secondary font-medium text-[15px] hidden sm:inline">- Instagram Analytics Tool</span>
             </div>
-            <p className="m-0 text-[13px] leading-relaxed text-text-secondary">
-              Understand your Instagram network. 100% private — your data never leaves your browser.
+            <p className="m-0 text-[14px] leading-relaxed text-text-secondary">
+              Discover who doesn't follow you back. 100% private.
             </p>
           </div>
 
-          {/* Links */}
-          <div className="flex flex-wrap gap-12">
-            <div className="flex flex-col gap-2.5">
-              <div className="mb-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-text-muted">
-                App
-              </div>
-              {[
-                { href: "/", label: "Home" },
-                { href: "/analytics", label: "Dashboard" },
-                { href: "/guide", label: "How to Export" },
-              ].map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="hover-link text-[14px] text-text-secondary"
-                >
-                  {label}
-                </Link>
-              ))}
+          {/* Quick Links */}
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2 text-[15px] font-bold text-text-primary">
+              <Link2 size={16} className="text-accent-primary" /> Quick Links
             </div>
+            <div className="flex flex-col gap-2.5 mt-1">
+              <Link href="/" className="hover-link text-[14px] text-text-secondary w-fit">Home</Link>
+              <Link href="/analytics" className="hover-link text-[14px] text-text-secondary w-fit">Dashboard</Link>
+              <Link href="/guide" className="hover-link text-[14px] text-text-secondary w-fit">How to Export</Link>
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="hover-link text-[14px] text-text-secondary w-fit">GitHub</a>
+            </div>
+          </div>
 
-            <div className="flex flex-col gap-2.5">
-              <div className="mb-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-text-muted">
-                Analytics
-              </div>
-              {[
-                { href: "/analytics/followers", label: "Followers" },
-                { href: "/analytics/following", label: "Following" },
-                { href: "/analytics/not-following-back", label: "Not Following Back" },
-              ].map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="hover-link text-[14px] text-text-secondary"
-                >
-                  {label}
-                </Link>
-              ))}
+          {/* Made by Biki */}
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2 text-[15px] font-bold text-text-primary">
+              <User size={16} className="text-accent-primary" /> Made by {BRAND_NAME}
+            </div>
+            <div className="flex flex-col gap-2.5 mt-1">
+              <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover-link text-[14px] text-text-secondary w-fit">
+                <Briefcase size={14} /> Portfolio
+              </a>
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover-link text-[14px] text-text-secondary w-fit">
+                <Code size={14} /> GitHub
+              </a>
             </div>
           </div>
         </div>
@@ -72,27 +60,10 @@ export default function Footer() {
         <div className="h-px bg-white/5" />
 
         {/* Bottom row */}
-        <div className="flex flex-col-reverse sm:flex-row flex-wrap items-center justify-between gap-4 sm:gap-3 text-center sm:text-left">
+        <div className="flex items-center justify-center text-center">
           <span className="text-[13px] text-text-muted">
-            © {year} {APP_NAME} · Processed locally
+            © {year} {APP_NAME} | All data processed locally on your device
           </span>
-
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            <span className="flex items-center gap-1.5 text-[13px] text-text-muted">
-              Made with <Heart size={12} className="text-danger" fill="currentColor" /> by
-              <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-text-secondary transition-colors hover:text-accent-primary">
-                {BRAND_NAME}
-              </a>
-            </span>
-            <a
-              href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-[13px] text-text-muted no-underline transition-colors duration-150 hover:text-highlight"
-            >
-              <ExternalLink size={13} /> Get Instagram Data
-            </a>
-          </div>
         </div>
       </div>
     </footer>

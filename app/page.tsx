@@ -11,11 +11,11 @@ import faqData from "@/data/faqs.json";
 
 const FEATURES = [
   { icon: <Zap size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Find Who Ghosted You", desc: "Instantly see exactly who you are following that isn't following you back." },
-  { icon: <Lock size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "100% Private & Secure", desc: "Your data never leaves your browser. No login or passwords required." },
-  { icon: <Users size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Follower Analytics", desc: "Get a complete breakdown of everyone who follows you and who you follow." },
   { icon: <Handshake size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Mutual Connections", desc: "Discover shared followers and perfectly reciprocal relationships." },
+  { icon: <Users size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Follower Analysis", desc: "See your complete follower list with status indicators. Know who follows you at a glance." },
   { icon: <Download size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Export Anywhere", desc: "Download beautifully formatted CSV or TXT lists of any user segment." },
   { icon: <BarChart2 size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "Rich Statistics", desc: "Visualize your entire Instagram network with comprehensive charts." },
+  { icon: <Lock size={32} strokeWidth={1.5} className="text-accent-primary" />, title: "100% Private & Secure", desc: "Your data never leaves your browser. No login or passwords required." },
 ];
 
 export default function HomePage() {
@@ -28,24 +28,24 @@ export default function HomePage() {
       <section className="mx-auto flex w-full max-w-[1000px] flex-1 flex-col items-center justify-center px-6 py-20 text-center">
         <div className="animate-fade-up mb-8 flex justify-center">
           <div className="flex h-28 w-28 items-center justify-center rounded-[32px] border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-5 shadow-[0_20px_40px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl transition-transform duration-500 hover:scale-105 hover:shadow-[0_20px_50px_rgba(255,107,53,0.2)]">
-            <Image src={APP_ICON} alt="Ghosters" width={90} height={90} className="drop-shadow-[0_10px_20px_rgba(255,107,53,0.4)]" />
+            <Image priority loading="eager" fetchPriority="high" src={APP_ICON} alt="Ghosters" width={90} height={90} className="drop-shadow-[0_10px_20px_rgba(255,107,53,0.4)]" />
           </div>
         </div>
 
         <h1 className="animate-fade-up mb-6 text-[clamp(48px,8vw,72px)] font-extrabold leading-tight tracking-tight [animation-delay:40ms]">
-          Stop Wondering <span className="gradient-text">Who's Ghosting You</span>
+          See Exactly Who's <span className="gradient-text">Not Following You Back</span>
         </h1>
 
         <div className="animate-fade-up mx-auto mb-12 max-w-[680px] text-[clamp(18px,4vw,22px)] font-normal leading-relaxed text-text-secondary [animation-delay:60ms]">
           <p className="mb-5">
-            See exactly who's not following you back in seconds. Deep analytics instantly, with zero risk to your account.
+            See who doesn't follow you back in 30 seconds
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[15px] sm:text-[17px] font-medium text-text-primary">
-            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100%</strong> Secure</span>
+            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100% Private</strong></span>
             <span className="hidden text-white/20 sm:inline">•</span>
-            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100%</strong> Private</span>
+            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">No login required</strong></span>
             <span className="hidden text-white/20 sm:inline">•</span>
-            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">100%</strong> Local Processing</span>
+            <span className="flex items-center gap-1.5"><span className="text-highlight font-bold">✓</span> <strong className="gradient-text text-[20px] sm:text-[22px] font-extrabold">Instant results</strong></span>
           </div>
         </div>
 

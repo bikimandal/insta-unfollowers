@@ -35,7 +35,7 @@ export default function Navbar() {
           href="/analytics"
           className="flex items-center gap-3 no-underline transition-transform hover:scale-105"
         >
-          <Image src={APP_ICON} alt={APP_NAME} width={36} height={36} className="h-9 w-9 drop-shadow-[0_4px_15px_rgba(255,107,53,0.2)]" />
+          <Image priority loading="eager" fetchPriority="high" src={APP_ICON} alt={APP_NAME} width={36} height={36} className="h-9 w-9 drop-shadow-[0_4px_15px_rgba(255,107,53,0.2)]" />
           <span className="gradient-text text-[20px] font-extrabold tracking-[-0.03em]">
             {APP_NAME}
           </span>

@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-10 flex h-[70px] items-center justify-between border-b border-white/5 bg-slate-900/40 px-8 backdrop-blur-xl">
       <Link href="/" className="flex items-center gap-3 no-underline transition-transform hover:scale-105">
-        <Image src={APP_ICON} alt={APP_NAME} width={36} height={36} className="h-9 w-9 drop-shadow-[0_4px_15px_rgba(255,107,53,0.2)]" />
+        <Image priority loading="eager" fetchPriority="high" src={APP_ICON} alt={APP_NAME} width={36} height={36} className="h-9 w-9 drop-shadow-[0_4px_15px_rgba(255,107,53,0.2)]" />
         <span className="gradient-text text-[20px] font-extrabold tracking-[-0.03em]">
           {APP_NAME}
         </span>

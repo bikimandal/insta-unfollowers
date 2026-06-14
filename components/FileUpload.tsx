@@ -206,17 +206,13 @@ export default function FileUpload() {
               <UploadCloud size={64} className="text-accent-primary" />
             </div>
             <div className="mb-3 text-2xl font-bold text-text-primary">
-              {isDragging ? "Drop files to analyze" : "Drag your Instagram export JSON files here"}
+              {isDragging ? "Drop files to analyze" : "Upload Your Instagram Data"}
             </div>
-            <div className="mb-8 text-base text-text-secondary">
-              or click to browse your files
+            <div className="mb-6 text-base text-text-secondary">
+              Drag your followers.json and following.json files here
             </div>
-            <div className="flex justify-center gap-3 text-sm text-text-secondary">
-              {["followers.json", "following.json"].map((name) => (
-                <span key={name} className="rounded-lg border border-white/10 bg-white/5 px-4 py-1.5">
-                  {name}
-                </span>
-              ))}
+            <div className="flex justify-center text-[15px] font-medium text-text-muted">
+              Takes 2 seconds <span className="mx-2">•</span> Stays on your device
             </div>
           </>
         )}
@@ -280,21 +276,24 @@ export default function FileUpload() {
       {/* How to export guide */}
       {state === "idle" && !pendingFollowing && !pendingFollowers && (
         <div className="card animate-fade-up mt-10 p-8 [animation-delay:200ms]">
-          <div className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-text-secondary">
-            How to get your data
+          <div className="mb-6 text-center text-sm font-bold uppercase tracking-[0.08em] text-text-secondary">
+            Get Your Data in 4 Simple Steps
           </div>
-          <div className="grid gap-4">
+          <div className="grid gap-5 text-left">
             {[
-              <><a href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark" target="_blank" rel="noopener noreferrer" className="font-semibold text-highlight no-underline">Open the Download Your Information</a> page in the Instagram Accounts Center</>,
-              'Select "Followers and following" and choose JSON format',
-              "Request download and wait for the email from Instagram",
-              'Unzip and upload the "followers.json" and "following.json" files here',
+              { title: "Request Your Data (1 minute)", desc: <>Go to <a href="https://accountscenter.instagram.com/info_and_permissions/dyi/?theme=dark" target="_blank" rel="noopener noreferrer" className="font-semibold text-highlight no-underline hover:underline">Instagram Settings</a> → Download Your Info → Select "Followers and following"</> },
+              { title: "Wait for Email (24-72 hours)", desc: "Instagram will email you a download link (be patient!)" },
+              { title: "Download & Extract (30 seconds)", desc: "Download the ZIP file and extract it" },
+              { title: "Upload & Analyze (2 seconds)", desc: "Drop your files here and see your unfollowers instantly" },
             ].map((step, i) => (
-              <div key={i} className="flex items-center gap-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent-primary/20 bg-gradient-to-br from-accent-primary/15 to-highlight/15 text-sm font-bold text-accent-primary">
+              <div key={i} className="flex gap-4">
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent-primary/20 bg-gradient-to-br from-accent-primary/15 to-highlight/15 text-sm font-bold text-accent-primary">
                   {i + 1}
                 </div>
-                <span className="text-[15px] leading-relaxed text-text-primary">{step}</span>
+                <div className="flex flex-col">
+                  <span className="mb-1 text-[15px] font-bold text-text-primary">{step.title}</span>
+                  <span className="text-[14px] leading-relaxed text-text-secondary">{step.desc}</span>
+                </div>
               </div>
             ))}
           </div>
